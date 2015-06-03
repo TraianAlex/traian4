@@ -10,7 +10,7 @@ function insert(){
             }
         }
         parameters = 'text=' + document.getElementById('text').value;
-        xmlhttp.open("POST", "http://localhost/traian3/new-pdo/ajax/post_data", true);
+        xmlhttp.open("POST", "http://localhost/traian4/new-pdo/ajax/post_data", true);
         xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xmlhttp.send(parameters);
 }

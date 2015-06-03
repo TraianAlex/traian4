@@ -37,7 +37,7 @@
     }
 </style>
 <div class="container page-content">
-    <div class="row"><script src="/traian3/new-pdo/js/breadcrumb.js"></script></div><br>
+    <div class="row"><script src="http://www.traian4.embassy-pub.ro/new-pdo/js/breadcrumb.js"></script></div><br>
     <div class="row">
         
         <div class="tabs">

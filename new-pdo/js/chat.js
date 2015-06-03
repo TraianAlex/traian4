@@ -2,7 +2,7 @@ var chat = {}
 
 chat.fetchMessages = function(){
     $.ajax({
-        url: 'http://localhost/traian3/new-pdo/ajax/chat_exec',
+        url: 'http://localhost/traian4/new-pdo/ajax/chat_exec',
         type: 'post',
         data: { method: 'fetch' },
         success: function (data) {
@@ -14,7 +14,7 @@ chat.fetchMessages = function(){
 chat.throwMessage = function(message){
     if($.trim(message).length != 0){
         $.ajax({
-        url: 'http://localhost/traian3/new-pdo/ajax/chat_exec',
+        url: 'http://localhost/traian4/new-pdo/ajax/chat_exec',
         type: 'post',
         data: { method: 'throw', message: message },
         success: function (data) {

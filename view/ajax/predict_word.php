@@ -10,8 +10,8 @@
              document.getElementById('results').innerHTML = xmlhttp.responseText;
             }
         }
-        xmlhttp.open("GET", "http://localhost/traian3/new-pdo/ajax/extract_data_get/" + document.search.search_text.value, true);
-        xmlhttp.send();/*"http://localhost/traian3/new-pdo/index.php?class=ajax&page=library&search_text=" + document.search.search_text.value*/
+        xmlhttp.open("GET", "http://localhost/traian4/new-pdo/ajax/extract_data_get/" + document.search.search_text.value, true);
+        xmlhttp.send();/*"http://localhost/traian4/new-pdo/index.php?class=ajax&page=library&search_text=" + document.search.search_text.value*/
     }
 </script>
 <div class="container page-content">

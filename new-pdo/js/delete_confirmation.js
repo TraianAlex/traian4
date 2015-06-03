@@ -1,5 +1,5 @@
 var formObject = {
-	urlRemove : 'http://localhost/traian3/new-pdo/inc/Ajax_method.php',
+	urlRemove : 'http://localhost/traian4/new-pdo/inc/Ajax_method.php',
 	run : function() {
 		formObject.removeTrigger($('.removeConfirm'));
 		formObject.remove($('.remove'));

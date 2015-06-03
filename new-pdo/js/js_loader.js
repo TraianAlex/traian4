@@ -1,5 +1,5 @@
 
-$js_path = "http://localhost/traian3/new-pdo/js/";
+$js_path = "http://localhost/traian4/new-pdo/js/";
 
 function js_include($script){
   var script = document.createElement('script');
