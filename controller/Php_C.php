@@ -90,7 +90,7 @@ class Php_C extends Controller{
     }
 //exec    
     public function delete_menu() {
-        if($_GET['page'] == 'delete_menu')
+        if($this->page == 'delete_menu')
             delete_menu();
     }
     

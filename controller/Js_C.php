@@ -28,7 +28,8 @@ class Js_C extends Controller{
     
     public function wordfromroot() {
         $this->view('header');
-        $this->view('js/wordsfromroot');
+        //$_GET['word'] = 'aba';
+        $this->view('js/wordsfromroot', $this->id);
     }
     
     public function delete_confirmation1() {

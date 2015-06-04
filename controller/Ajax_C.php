@@ -71,9 +71,8 @@ class Ajax_C extends Controller{
  */   
     public function extract_data_get() {
         
-        if(isset($_GET['id'])){
-            $text = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
-            $search = $this->Ajax->extract($text);
+        if(isset($this->id)){
+            $search = $this->Ajax->extract($this->id);
             foreach ($search as $row) {
                 echo $row['word'].'<br>';
             }

@@ -5,14 +5,12 @@
         
 $out = "";
 $max = 5;
-//$_GET['word'] = 'aba';
-if (!isset($_GET['id'])) exit;
+
+if (!$arrData) exit;
+
 if (isset($_GET['max'])) $max = $_GET['max'];
 
-if (!isset($_GET['id']))
-   exit;
-
-$result = PIPHP_WordsFromRoot($_GET['id'], APP_PATH.'/library/dictionary.txt', $max);
+$result = PIPHP_WordsFromRoot($arrData, APP_PATH.'/library/dictionary.txt', $max);
 if ($result != FALSE)
    foreach ($result as $word)
       echo "$word<br />";

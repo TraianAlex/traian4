@@ -8,7 +8,7 @@ $item1 = $menu->addRootItem('item0');
 $menu->addRootItem('item1');//item1
 $menu->addRootItem('item2')->addChild('my profile', 'http://www.phpclasses.org/browse/author/916379.html', '_blank');//'item2//
 $menu->addRootItem('item3');//item3
-$menu->addRootItem('home', 'http://localhost/traian3/new-pdo/users/nologin_area', '_self');//item4
+$menu->addRootItem('home', 'http://localhost/traian4/new-pdo/users/nologin_area', '_self');//item4
 //to remove ITEM  :
 /**
  $menu->removeItemByPath('0\1\0');
