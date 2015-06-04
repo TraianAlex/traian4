@@ -19,6 +19,6 @@ window.location=requiredfrom;
 </div>
 <div class="container page-content">
 	<div class="row">
-            <iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.ca/books?id=niMBBQAAQBAJ&lpg=PA171&ots=CcU35T1Djx&dq=meta%20content%3D%20authenticity_token%20name%3D%20csrf-param%20%2F&pg=PA171&output=embed" width=500 height=500></iframe>
+            <iframe frameborder="0" scrolling="no" style="border:0px" src="https://books.google.ca/books?id=niMBBQAAQBAJ&lpg=PA171&ots=CcU35T1Djx&dq=meta%20content%3D%20authenticity_token%20name%3D%20csrf-param%20%2F&pg=PA171&output=embed" width=1200 height=500></iframe>
 	</div>
 </div>
