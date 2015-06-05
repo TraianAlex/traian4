@@ -4,34 +4,32 @@
 
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro'){
-	define("APP_PATH", dirname(__FILE__));
-        define('PATH', '');
-        define("SITE_ROOT", "/new-pdo");
-        define("PATH_UPL", SITE_ROOT);
-        define("PATH_FILE", dirname(__FILE__).SITE_ROOT);
-	define("NEW_ADDRESS", "");
-        define("BASE", 'http://www.traian4.embassy-pub.ro');
+    define("APP_PATH", dirname(__FILE__));
+    define('PATH', '');
+    define("SITE_ROOT", "/new-pdo");
+    define("PATH_FILE", APP_PATH.SITE_ROOT);
+    define("ADDRESS", "");
+    define("BASE", 'http://'.$_SERVER['HTTP_HOST']);
 	//define("DEBUG_MODE", false);
-	define("DEBUG_MODE", true);//on the cloud change this with false
+    define("DEBUG_MODE", true);//on the cloud change this with false
 
         //ini_set('display_errors', 0);
-	ini_set('display_errors', 1);
-        ini_set('error_reporting', E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('error_reporting', E_ALL);
 	//error_reporting( 0 );
-	error_reporting( E_ALL );
+    error_reporting( E_ALL );
 }else{
-        define('PATH', '/traian4');
-	define("APP_PATH", $_SERVER['DOCUMENT_ROOT'].PATH);
-        define("SITE_ROOT", PATH."/new-pdo");
-        define("PATH_UPL", SITE_ROOT);
-        define("PATH_FILE", $_SERVER['DOCUMENT_ROOT'].SITE_ROOT);
-	define("NEW_ADDRESS", "http://localhost");
-        define("BASE", 'http://localhost'.SITE_ROOT.'/');
-	define("DEBUG_MODE", true);//on the cloud change this with false
+    define('PATH', '/traian4');
+    define("APP_PATH", $_SERVER['DOCUMENT_ROOT'].PATH);
+    define("SITE_ROOT", PATH."/new-pdo");
+    define("PATH_FILE", $_SERVER['DOCUMENT_ROOT'].SITE_ROOT);
+    define("ADDRESS", 'http://'.$_SERVER['HTTP_HOST']);
+    define("BASE", ADDRESS.SITE_ROOT.'/');
+    define("DEBUG_MODE", true);//on the cloud change this with false
         
-        ini_set('display_errors', 1);
-        ini_set('error_reporting', E_ALL);
-	error_reporting( E_ALL );
+    ini_set('display_errors', 1);
+    ini_set('error_reporting', E_ALL);
+    error_reporting( E_ALL );
 }
 
 //--------------- 2. INCLUDES -------------------------------------------------------
