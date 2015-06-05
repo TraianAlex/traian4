@@ -13,6 +13,20 @@ $class = "model/Users";
 include("$class.php");
 $class = str_replace('/', '', substr($class, strrpos($class, '/')));
 echo $class.'<br>';
+echo gettype($name),"<br>";
+echo gettype(77).'<br>';
+echo gettype(77.7).'<br>';
+echo gettype(true).'<br>';
+echo gettype([]).'<br>';
+
+echo min([3,5,7,8,9]), '<br>';
+echo max([3,5,7,8,9]), '<br>';
+var_dump(get_url());
+var_dump(parse_url($_SERVER['REQUEST_URI']));
+$url2 = parse_url($_SERVER['HTTP_REFERER']);
+var_dump($url2);
+var_dump($_SERVER['REQUEST_URI']);
+var_dump(parse_url($_SERVER['REQUEST_URI'])['path']);
 ?>
 <script type="text/javascript">
     document.write('Location(js): ' + window.location + '<br>');
@@ -265,12 +279,12 @@ define(strtoupper($color), "This is the color $color"); // Works fine
 * Path to the root of the application
 */
 define("PATH_ROOT", dirname(__FILE__));
-echo PATH_ROOT, "<br>";
-echo APP_PATH, "<br>";
-echo SITE_ROOT, "<br>";
-echo dirname(__DIR__), "<br>";
-echo $_SERVER['DOCUMENT_ROOT'], "<br>";
-echo 'http://'.$_SERVER['HTTP_HOST'].str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', dirname(__DIR__))), "<br>";
+//echo PATH_ROOT, "<br>";
+//echo APP_PATH, "<br>";
+//echo SITE_ROOT, "<br>";
+//echo dirname(__DIR__), "<br>";
+//echo $_SERVER['DOCUMENT_ROOT'], "<br>";
+//echo 'http://'.$_SERVER['HTTP_HOST'].str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', dirname(__DIR__))), "<br>";
 /**
 * Path to configuration files
 */
