@@ -46,11 +46,9 @@ class Ajax extends DB_Manager{
     
         if(!empty($search_text)){
 
-            $objDb = new PDO('mysql:host=localhost;dbname=remb4372_traian', 'remb4372_victor', 'naiart92');
-            $objDb->exec('SET CHARACTER SET utf8');
-
+            self::$instance = DB_Manager::get_instance($_POST)->database();
             $sql = "SELECT * FROM `dictionary` WHERE `word` LIKE ?";
-            $statement = $objDb->prepare($sql);
+            $statement = self::$instance->prepare($sql);
             $statement->execute(array($search_text.'%'));
             $search = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $search;
