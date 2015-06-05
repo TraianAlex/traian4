@@ -12,4 +12,7 @@
 
         <iframe width="100%" height="1200" src="<?=SITE_ROOT?>/users/portofolio" name="iframe_a" frameBorder="0"></iframe>
      </div>
+    <div class="row">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/JpYWt3r_xgI" frameborder="0" allowfullscreen></iframe>
+    </div>
 </div>

@@ -10,13 +10,13 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro'){
     define("PATH_FILE", APP_PATH.SITE_ROOT);
     define("ADDRESS", "");
     define("BASE", 'http://'.$_SERVER['HTTP_HOST']);
-	//define("DEBUG_MODE", false);
+    //define("DEBUG_MODE", false);
     define("DEBUG_MODE", true);//on the cloud change this with false
 
-        //ini_set('display_errors', 0);
+    //ini_set('display_errors', 0);
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
-	//error_reporting( 0 );
+    //error_reporting( 0 );
     error_reporting( E_ALL );
 }else{
     define('PATH', '/traian4');
