@@ -266,6 +266,11 @@ define(strtoupper($color), "This is the color $color"); // Works fine
 */
 define("PATH_ROOT", dirname(__FILE__));
 echo PATH_ROOT, "<br>";
+echo APP_PATH, "<br>";
+echo SITE_ROOT, "<br>";
+echo dirname(__DIR__), "<br>";
+echo $_SERVER['DOCUMENT_ROOT'], "<br>";
+echo 'http://'.$_SERVER['HTTP_HOST'].str_replace($_SERVER['DOCUMENT_ROOT'], '', str_replace('\\', '/', dirname(__DIR__))), "<br>";
 /**
 * Path to configuration files
 */
