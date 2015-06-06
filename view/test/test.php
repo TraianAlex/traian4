@@ -10,7 +10,9 @@ $name = "image.jpg";
 echo "Extension for image.jpg is ". strtolower(substr($name, strpos($name, '.') + 1)).'<br>';
 
 $class = "model/Users";
-include("$class.php");
+//include("$class.php");
+$a = gettype(include("$class.php")).'<br>';
+var_dump($a);
 $class = str_replace('/', '', substr($class, strrpos($class, '/')));
 echo $class.'<br>';
 echo gettype($name),"<br>";
@@ -19,8 +21,22 @@ echo gettype(77.7).'<br>';
 echo gettype(true).'<br>';
 echo gettype([]).'<br>';
 
+for ($i=0; $i < 7; $i++) { 
+    $scores[] = mt_rand(60, 90);
+}
+var_dump($scores);
 echo min([3,5,7,8,9]), '<br>';
 echo max([3,5,7,8,9]), '<br>';
+echo getAverage([3,5,7,8,9]), '<br>';
+echo round(77.8), '<br>';
+echo ceil(77.3), '<br>';//round up
+echo floor(77.3), '<br>';//round down
+echo abs(77.3), '<br>';//absolute value
+
+function getAverage($array){
+  return array_sum($array)/count($array);
+}
+
 var_dump(get_url());
 var_dump(parse_url($_SERVER['REQUEST_URI']));
 $url2 = parse_url($_SERVER['HTTP_REFERER']);
