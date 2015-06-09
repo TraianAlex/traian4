@@ -60,6 +60,11 @@ class Sessions{
 
         session_regenerate_id();
         session_start();
+        if (!self::exist('generated') || self::get('generated') < (time() - 300)) {
+            session_regenerate_id();
+            self::set_session('generated', time());
+            URL::to(SITE_ROOT.'/');
+        }
         ob_start();
         ini_set('session.use_cookies', 1);
         ini_set('session.use_only_cookies', 0); //1 ?
@@ -77,6 +82,7 @@ class Sessions{
         //session_cache_limiter('public');////no-cache//private or private_no_expire
         //session_cache_limiter('private, must-revalidate');
         //session_cache_expire(60); // in minutes
+        ini_set('session.use_strict_mode', 1);
     }
     
     private static function setCanary() {
@@ -156,6 +162,19 @@ class Sessions{
             self::set_session('start', time());
             return true;
         }
+    }
+    
+    public function set_token(){
+
+        $t = sha1(strval(date('W')) . 'YourSpecialValueHere');
+        $this->set_session('t', $t);
+        output_add_rewrite_var('t', $t);
+    }
+
+    public function check_token(){
+
+        if (!isset($_REQUEST['t']) || $_REQUEST['t'] != $this->get('t'))
+            Errors::handle_error2(null,'You must login to see this page.');
     }
     
     private function destroySession(){
