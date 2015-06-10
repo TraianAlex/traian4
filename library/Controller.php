@@ -21,17 +21,7 @@ class Controller {
     
     public function index() {
  
-        file_exists(APP_PATH.'/application/page_rules.php') ?
-            include APP_PATH."/application/page_rules.php": "";
-        if(in_array($this->page, $config_page['all_pages'])):
-            $this->checkUserPage();
-        elseif(in_array($this->page, $config_page['admin'])):
-            if($this->route[0] != 'admins' && !in_array($this->page, ['index', 'login'])):
-                $this->check_hash();
-                $this->session->check_token();
-            endif;
-            $this->checkAdminPage();
-        endif;
+        $this->filter_page();
         $this->view('head');
         $this->dispatch();
         $this->view('footer');
@@ -84,6 +74,22 @@ class Controller {
         return $this->valid->check($id);
     }
     
+    private function filter_page() {
+        
+        file_exists(APP_PATH.'/application/page_rules.php') ?
+            include APP_PATH."/application/page_rules.php": "";
+        if(in_array($this->page, $config_page['all_pages'])):
+            $this->checkUserPage();
+        elseif(in_array($this->page, $config_page['admin'])):
+            if($this->route[0] != 'admins' && !in_array($this->page, ['index', 'login_adm'])):
+                $this->check_hash();
+                $this->session->check_token();
+            endif;
+            $this->session->set_token();
+            $this->checkAdminPage();
+        endif;
+    }
+    
     private function checkUserPage() {
 
         file_exists(APP_PATH.'/application/page_rules.php') ?
@@ -124,36 +130,4 @@ class Controller {
         endif;
         return $this->valid->check($this->page);
     }
-    
-    /*    
-    protected function view1($view, $vars=[]){
-        
-        $view = str_replace('.tpl.php', '', $view);
-        $GLOBALS['output'] = ob_get_contents();
-        $GLOBALS = array_merge($GLOBALS, $vars);
-        @ob_end_clean();
-        include("$view.tpl.php");
-    }*/
-    //ex. $reg = $this->model1('Users', 'register_user');
-    /*protected function model($modelName, $function, $arrArgument=''){
-
-        $model_path = APP_PATH . '/model/' . $modelName . '.php';
-        if(file_exists($model_path)){
-           if(isset($arrArgument)){
-                $arrData = $arrArgument;
-           }
-           include_once($model_path);
-           if(!method_exists($modelName, $function)){
-               die($function . ' function not found in Model ' . $modelName);
-           }
-           $obj = new $modelName($_POST);
-           if(isset($arrArgument)){
-               return $obj->$function($arrArgument);
-           }else{
-               return $obj->$function();
-           }
-        }else{
-           die($modelName. ' Model Not Found under Model Folder');
-        }
-    }*/
 }
