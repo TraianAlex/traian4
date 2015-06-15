@@ -7,7 +7,7 @@ class Ajax_C extends Controller{
     }
 
     public function index() {
-        URL::to(SITE_ROOT);
+        URL::to();
     }
     
     public function ajax_nav() {

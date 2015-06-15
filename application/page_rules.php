@@ -36,12 +36,12 @@
 /*
  * if is a condition
  */
-       $config_page['aside_left'] = array();
+       $config_page['aside_left'] = [];
 
 /*
  * include sidebar float right
  */       
-       $config_page['sidebar2'] = array();
+       $config_page['sidebar2'] = [];
 /*
  * a white list for admin pages
  */

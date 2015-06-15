@@ -7,7 +7,7 @@ class Php_C extends Controller{
     }
 
     public function index() {
-        URL::to(SITE_ROOT);
+        URL::to();
     }
     
     public function youtube_down() {

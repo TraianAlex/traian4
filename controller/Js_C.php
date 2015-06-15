@@ -3,7 +3,7 @@
 class Js_C extends Controller{
     
     public function index() {
-        URL::to(SITE_ROOT);
+        URL::to();
     }
     
     public function toggle_text() {//func toggletext

@@ -103,12 +103,12 @@ default:
  * check if the size are between o and 14000. focused for the max size and can be empty
  * it is not restricted for not allowed chars
  */
-       $config['size_max'] = array();
+       $config['size_max'] = [];
 /*
  * validate text but only digit and dash
  * min = 3, max = 20, allowed = "0-9 -", required = "d"
  */
-       $config['digit'] = array();
+       $config['digit'] = [];
 /*
  * check if a name or other item (first define a function in model and in Validate)
  */

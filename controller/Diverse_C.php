@@ -7,7 +7,7 @@ class Diverse_C extends Controller{
     }
 
     public function index() {
-        URL::to(SITE_ROOT);
+        URL::to();
     }
     
     public function chart_bar() {

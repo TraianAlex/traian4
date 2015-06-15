@@ -1,5 +1,5 @@
 Options -MultiViews
-#Options -Indexes
+Options -Indexes
 RewriteEngine on
 AddType application/x-httpd-php55 .php
 RewriteBase /traian4/new-pdo

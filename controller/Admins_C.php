@@ -7,7 +7,7 @@ final class Admins_C extends Controller{
     }
 
     public function index() {
-        URL::to(SITE_ROOT."/admins/admin");
+        URL::to("admins/admin");
     }
 
     public function admin() {
@@ -20,7 +20,7 @@ final class Admins_C extends Controller{
         if ($this->input->exist('submit') && $this->input->get('submit') == 'Sign In') {
             $this->valid->validation($_POST);
             if($this->session->attempt() === false)
-                URL::to(URL::xlink3('admins', 'index', null));
+                URL::to(URL::xlink3('admins', 'index'));
             if(!$this->logins()){
                 $this->session->delete_session();
                 $this->session->set_session('att', $this->session->get('att') + 1);
@@ -35,10 +35,10 @@ final class Admins_C extends Controller{
         $adm = $this->Admins->login_admin();
         if($adm){
             $this->auth_admin($adm);
-            URL::to(URL::xlink3('admins', 'users', null));
+            URL::to(URL::xlink3('admins', 'users'));
         }else if($this->Admins->login_sup() && $_SESSION['user'] === 'sup'){
             $this->auth_sup();
-            URL::to(URL::xlink3('admins', 'users', null));
+            URL::to(URL::xlink3('admins', 'users'));
         }
         return false;
     }
@@ -83,7 +83,6 @@ final class Admins_C extends Controller{
                 }
             }catch(Exception $e){
                  Errors::handle_error2($e->getMessage(), null);
-                 exit;
             }
         }
         $this->view('admins/header');
