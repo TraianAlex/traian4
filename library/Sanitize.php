@@ -179,6 +179,18 @@ class Sanitize{
         return $txt;
     }
 
+    function change_words($txt){
+        $pattern[] = "/prost|cacat|pisat|pula|sula|pizda|muie|sugi|coi|coios|taran|curva|jepat|fuck|futut|fut|fute|muist|bulesc|babardesc|homo|homosexual|bulit|futi|floci|bagami-as|bagamias|mata|tact-o|bitch|bitchass|blowjob|blow job|shit/";
+        $replace[] = "<span style=\"color:red; font-style: italic;\">×××</span>";
+        if(is_array($txt) && count($txt) > 0){
+            foreach ($txt as $value) {
+                return preg_replace($pattern, $replace, $value);
+            }
+        }else{
+            return preg_replace($pattern, $replace, $txt);
+        }
+    }
+    
     public static function add($array){
 
         $ret = array();
