@@ -102,4 +102,9 @@ class Php_C extends Controller{
         $this->view('header');
         $this->view('php/login_system');
     }
+
+    public function paypal(){
+        $this->view('header');
+        $this->view('php/paypal');
+    }
 }

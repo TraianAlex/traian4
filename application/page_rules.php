@@ -15,7 +15,7 @@
            'profile', 'personal_data', 'password', 'update_data', 'change_pass', 'oath_ajax_login', 'oath_fb_login',
            'login_area', 'portofolio',
            'watermark', 'watermark_done', 'check_site', 'shorten_text', 'get_browser', 'captcha2', 'menu_generator',
-           'menu',
+           'menu', 'paypal',
            'spellcheck', 'menu_array', 'youtube_down', 'exec_down', 'login_system',//php
            'delete_menu',
            'toggle_text', 'rollover_text', 'slide_show', 'input_prompt', 'wordfromroot', 'delete_confirmation1',//js
@@ -32,7 +32,7 @@
 * in this page must log in first
 */
        $config_page['page_login'] = ['login_area', 'profile', 'personal_data', 'password', 'update_data',
-           'change_pass', 'chat', 'chat_exec'];
+           'change_pass', 'chat', 'chat_exec', 'paypal'];
 /*
  * if is a condition
  */

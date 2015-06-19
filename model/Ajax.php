@@ -13,10 +13,8 @@ class Ajax extends DB_Manager{
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'test';
         $result = self::$instance->values(array('name' => $this->data['text'],
-                                        'feedback' => $this->data['feedback']))->insert();
-        if($result) return true;
-        $result->closeCursor();
-        return false;
+                                            'feedback' => $this->data['feedback']))->insert();
+        return $result ? true : false;
     }
     
     public function post_data_form() {
@@ -25,9 +23,7 @@ class Ajax extends DB_Manager{
         $result = self::$instance->values(array('name' => $this->data['name'],
                                           'email' => $this->data['email'],
                                         'feedback' => $this->data['message']))->insert();
-        if($result) return true;
-        $result->closeCursor();
-        return false;
+        return $result ? true : false;
     }
 /*
  * check if a name is taken in Validate
@@ -70,7 +66,7 @@ class Ajax extends DB_Manager{
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'chat';
         self::$instance->values(array('user_id' => $arrData['user'],
-                                 'message' => $arrData['message'],
-                               'timestamp' => time()))->insert();
+                                      'message' => $arrData['message'],
+                                    'timestamp' => time()))->insert();
     }
 }
