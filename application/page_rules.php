@@ -26,7 +26,8 @@
            'extract_data_post', 'chat', 'chat_exec', 'search_flickr', 'search_address', 'tabs',
             //ajax'
            'captcha', 'test', 'google_chart', 'image_email', 'test_pass', 'embed_youtube', 'tutorial',//test
-           'chart_bar', 'line_chart', 'pie_chart', 'filepicker',//diverse
+           'chart_bar', 'line_chart', 'pie_chart', 'filepicker', 'modal', 'hexagon',  'code_edit', 'manechin',
+           //diverse
            null];
 /*
 * in this page must log in first

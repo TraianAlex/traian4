@@ -125,7 +125,10 @@ file_exists(APP_PATH.'/application/page_rules.php') ?
                       <li class="divider"></li>
                       <li><a href="<?=SITE_ROOT?>/diverse/filepicker">Filepicker</a></li>
                       <li class="divider"></li>
-                      <li><a href="#">One more separated link</a></li>
+                      <li><?=URL::link('diverse/modal', 'Modal Box')?></li>
+                      <li><?=URL::link('diverse/hexagon', 'Hexagon transform')?></li>
+                      <li><?=URL::link('diverse/code_edit', 'Micro code editor')?></li>
+                      <li><?=URL::link('diverse/manechin', 'Manechin')?></li>
                     </ul>
                   </li>
                   

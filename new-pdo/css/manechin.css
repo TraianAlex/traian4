@@ -1,0 +1,1052 @@
+body {
+  background: #34495e;
+  width: 100%;
+  height: 100%;
+}
+
+.Scene {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 600;
+  -moz-perspective: 600;
+  perspective: 600;
+  width: 800px;
+  height: 600px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -300px 0 0 -400px;
+  border-radius: 6px;
+}
+
+.Scene * {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.Camera {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-animation: CameraRotate 10s infinite linear;
+  -moz-animation: CameraRotate 10s infinite linear;
+  animation: CameraRotate 10s infinite linear;
+}
+
+.GroundPlane {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200%;
+  height: 200%;
+  background: #27ae60;
+  -webkit-transform: rotateX(-90deg) translateZ(-115px);
+  -moz-transform: rotateX(-90deg) translateZ(-115px);
+  transform: rotateX(-90deg) translateZ(-115px);
+}
+
+.Mannequin {
+  margin: 0;
+  width: 78px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -webkit-transform-origin: 39px 493px;
+  -moz-transform-origin: 39px 493px;
+  transform-origin: 39px 493px;
+}
+
+.Mannequin,
+.Mannequin *,
+.Mannequin *:after,
+.Mannequin *:before {
+  position: absolute;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+
+.Body {
+  top: 88px;
+  left: 0px;
+  -webkit-transform-origin: 39px 180px;
+  -moz-transform-origin: 39px 180px;
+  transform-origin: 39px 180px;
+}
+
+.Face {
+  margin: 0;
+  padding: 0;
+}
+
+.UpperBody {
+  top: 0;
+  left: 0px;
+  -webkit-transform-origin: 39px 96px;
+  -moz-transform-origin: 39px 96px;
+  transform-origin: 39px 96px;
+}
+
+.UpperBody .Face {
+  width: 78px;
+  height: 86px;
+  background: #f2f2f2;
+}
+
+.UpperBody-frontFace {
+  -webkit-transform: translateZ(20px);
+  -moz-transform: translateZ(20px);
+  transform: translateZ(20px);
+}
+
+.UpperBody-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 40px;
+  height: 86px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.UpperBody-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 78px;
+  height: 40px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.UpperBody-backFace {
+  -webkit-transform: translateZ(-20px);
+  -moz-transform: translateZ(-20px);
+  transform: translateZ(-20px);
+}
+
+.UpperBody-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 40px;
+  height: 86px;
+  -webkit-transform: rotateY(-90deg) translateZ(-78px);
+  -moz-transform: rotateY(-90deg) translateZ(-78px);
+  transform: rotateY(-90deg) translateZ(-78px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.UpperBody-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #bfbfbf;
+  width: 78px;
+  height: 40px;
+  -webkit-transform: rotateX(90deg) translateZ(-86px);
+  -moz-transform: rotateX(90deg) translateZ(-86px);
+  transform: rotateX(90deg) translateZ(-86px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Head {
+  top: -62px;
+  left: 14px;
+  -webkit-transform-origin: 25px 62px;
+  -moz-transform-origin: 25px 62px;
+  transform-origin: 25px 62px;
+}
+
+.Head .Face {
+  width: 50px;
+  height: 52px;
+  background: #f2f2f2;
+}
+
+.Head-frontFace {
+  -webkit-transform: translateZ(15px);
+  -moz-transform: translateZ(15px);
+  transform: translateZ(15px);
+}
+
+.Head-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 30px;
+  height: 52px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Head-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 50px;
+  height: 30px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Head-backFace {
+  -webkit-transform: translateZ(-15px);
+  -moz-transform: translateZ(-15px);
+  transform: translateZ(-15px);
+}
+
+.Head-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 30px;
+  height: 52px;
+  -webkit-transform: rotateY(-90deg) translateZ(-50px);
+  -moz-transform: rotateY(-90deg) translateZ(-50px);
+  transform: rotateY(-90deg) translateZ(-50px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Head-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 50px;
+  height: 30px;
+  -webkit-transform: rotateX(90deg) translateZ(-52px);
+  -moz-transform: rotateX(90deg) translateZ(-52px);
+  transform: rotateX(90deg) translateZ(-52px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.LowerBody {
+  top: 106px;
+  left: 9px;
+}
+
+.LowerBody .Face {
+  width: 60px;
+  height: 62px;
+  background: #f2f2f2;
+}
+
+.LowerBody-frontFace {
+  -webkit-transform: translateZ(15px);
+  -moz-transform: translateZ(15px);
+  transform: translateZ(15px);
+}
+
+.LowerBody-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 30px;
+  height: 62px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.LowerBody-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 60px;
+  height: 30px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.LowerBody-backFace {
+  -webkit-transform: translateZ(-15px);
+  -moz-transform: translateZ(-15px);
+  transform: translateZ(-15px);
+}
+
+.LowerBody-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 30px;
+  height: 62px;
+  -webkit-transform: rotateY(-90deg) translateZ(-60px);
+  -moz-transform: rotateY(-90deg) translateZ(-60px);
+  transform: rotateY(-90deg) translateZ(-60px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.LowerBody-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 60px;
+  height: 30px;
+  -webkit-transform: rotateX(90deg) translateZ(-62px);
+  -moz-transform: rotateX(90deg) translateZ(-62px);
+  transform: rotateX(90deg) translateZ(-62px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Legs {
+  top: 278px;
+  left: 0px;
+  width: 50px;
+}
+
+.Leg {
+  -webkit-transform-origin: 14px -20px;
+  -moz-transform-origin: 14px -20px;
+  transform-origin: 14px -20px;
+}
+
+.Leg.left {
+  left: 0px;
+}
+
+.Leg.right {
+  right: 0px;
+}
+
+.Leg-upperLeg {
+  top: 0px;
+}
+
+.Leg-upperLeg .Face {
+  width: 28px;
+  height: 94px;
+  background: #f2f2f2;
+}
+
+.Leg-upperLeg-frontFace {
+  -webkit-transform: translateZ(15px);
+  -moz-transform: translateZ(15px);
+  transform: translateZ(15px);
+}
+
+.Leg-upperLeg-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 30px;
+  height: 94px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Leg-upperLeg-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 28px;
+  height: 30px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Leg-upperLeg-backFace {
+  -webkit-transform: translateZ(-15px);
+  -moz-transform: translateZ(-15px);
+  transform: translateZ(-15px);
+}
+
+.Leg-upperLeg-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 30px;
+  height: 94px;
+  -webkit-transform: rotateY(-90deg) translateZ(-28px);
+  -moz-transform: rotateY(-90deg) translateZ(-28px);
+  transform: rotateY(-90deg) translateZ(-28px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Leg-upperLeg-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 28px;
+  height: 30px;
+  -webkit-transform: rotateX(90deg) translateZ(-94px);
+  -moz-transform: rotateX(90deg) translateZ(-94px);
+  transform: rotateX(90deg) translateZ(-94px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Leg-lowerLeg {
+  top: 103px;
+  left: 3px;
+}
+
+.Leg-lowerLeg .Face {
+  width: 23px;
+  height: 104px;
+  background: #f2f2f2;
+}
+
+.Leg-lowerLeg-frontFace {
+  -webkit-transform: translateZ(15px);
+  -moz-transform: translateZ(15px);
+  transform: translateZ(15px);
+}
+
+.Leg-lowerLeg-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 30px;
+  height: 104px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Leg-lowerLeg-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 23px;
+  height: 30px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Leg-lowerLeg-backFace {
+  -webkit-transform: translateZ(-15px);
+  -moz-transform: translateZ(-15px);
+  transform: translateZ(-15px);
+}
+
+.Leg-lowerLeg-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 30px;
+  height: 104px;
+  -webkit-transform: rotateY(-90deg) translateZ(-23px);
+  -moz-transform: rotateY(-90deg) translateZ(-23px);
+  transform: rotateY(-90deg) translateZ(-23px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Leg-lowerLeg-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 23px;
+  height: 30px;
+  -webkit-transform: rotateX(90deg) translateZ(-104px);
+  -moz-transform: rotateX(90deg) translateZ(-104px);
+  transform: rotateX(90deg) translateZ(-104px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Arm {
+  -webkit-transform-origin: 13px 13px;
+  -moz-transform-origin: 13px 13px;
+  transform-origin: 13px 13px;
+  top: 0;
+}
+
+.Arm.left {
+  left: -30px;
+}
+
+.Arm.right {
+  right: -84px;
+}
+
+.Arm-upperArm {
+  top: 0px;
+}
+
+.Arm-upperArm .Face {
+  width: 23px;
+  height: 84px;
+  background: #f2f2f2;
+}
+
+.Arm-upperArm-frontFace {
+  -webkit-transform: translateZ(10px);
+  -moz-transform: translateZ(10px);
+  transform: translateZ(10px);
+}
+
+.Arm-upperArm-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 20px;
+  height: 84px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Arm-upperArm-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 23px;
+  height: 20px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Arm-upperArm-backFace {
+  -webkit-transform: translateZ(-10px);
+  -moz-transform: translateZ(-10px);
+  transform: translateZ(-10px);
+}
+
+.Arm-upperArm-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 20px;
+  height: 84px;
+  -webkit-transform: rotateY(-90deg) translateZ(-23px);
+  -moz-transform: rotateY(-90deg) translateZ(-23px);
+  transform: rotateY(-90deg) translateZ(-23px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Arm-upperArm-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 23px;
+  height: 20px;
+  -webkit-transform: rotateX(90deg) translateZ(-84px);
+  -moz-transform: rotateX(90deg) translateZ(-84px);
+  transform: rotateX(90deg) translateZ(-84px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Arm-lowerArm {
+  top: 94px;
+  left: 3px;
+}
+
+.Arm-lowerArm .Face {
+  width: 17px;
+  height: 90px;
+  background: #f2f2f2;
+}
+
+.Arm-lowerArm-frontFace {
+  -webkit-transform: translateZ(10px);
+  -moz-transform: translateZ(10px);
+  transform: translateZ(10px);
+}
+
+.Arm-lowerArm-frontFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #e6e6e6;
+  width: 20px;
+  height: 90px;
+  -webkit-transform: rotateY(90deg);
+  -moz-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Arm-lowerArm-frontFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 17px;
+  height: 20px;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+.Arm-lowerArm-backFace {
+  -webkit-transform: translateZ(-10px);
+  -moz-transform: translateZ(-10px);
+  transform: translateZ(-10px);
+}
+
+.Arm-lowerArm-backFace:after {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #ebebeb;
+  width: 20px;
+  height: 90px;
+  -webkit-transform: rotateY(-90deg) translateZ(-17px);
+  -moz-transform: rotateY(-90deg) translateZ(-17px);
+  transform: rotateY(-90deg) translateZ(-17px);
+  -webkit-transform-origin: 0px 50%;
+  -moz-transform-origin: 0px 50%;
+  transform-origin: 0px 50%;
+}
+
+.Arm-lowerArm-backFace:before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  background: #cccccc;
+  width: 17px;
+  height: 20px;
+  -webkit-transform: rotateX(90deg) translateZ(-90px);
+  -moz-transform: rotateX(90deg) translateZ(-90px);
+  transform: rotateX(90deg) translateZ(-90px);
+  -webkit-transform-origin: 50% 0px;
+  -moz-transform-origin: 50% 0px;
+  transform-origin: 50% 0px;
+}
+
+#one:target ~ .Scene .Mannequin {
+  -webkit-transform: rotateX(-10deg);
+  -moz-transform: rotateX(-10deg);
+  transform: rotateX(-10deg);
+}
+
+#one:target ~ .Scene .Mannequin .Body {
+  -webkit-transform: rotateX(10deg);
+  -moz-transform: rotateX(10deg);
+  transform: rotateX(10deg);
+}
+
+#one:target ~ .Scene .Mannequin .UpperBody {
+  -webkit-transform: rotateX(12deg);
+  -moz-transform: rotateX(12deg);
+  transform: rotateX(12deg);
+}
+
+#one:target ~ .Scene .Mannequin .Head {
+  -webkit-transform: rotateX(-20deg);
+  -moz-transform: rotateX(-20deg);
+  transform: rotateX(-20deg);
+}
+
+#one:target ~ .Scene .Mannequin .Arm.left {
+  -webkit-transform: rotateX(-64deg) rotateY(20deg);
+  -moz-transform: rotateX(-64deg) rotateY(20deg);
+  transform: rotateX(-64deg) rotateY(20deg);
+}
+
+#one:target ~ .Scene .Mannequin .Arm.right {
+  -webkit-transform: rotateX(-64deg) rotateY(-20deg);
+  -moz-transform: rotateX(-64deg) rotateY(-20deg);
+  transform: rotateX(-64deg) rotateY(-20deg);
+}
+
+#one:target ~ .Scene .Mannequin .Arm-lowerArm {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+}
+
+#two:target ~ .Scene .Mannequin {
+  -webkit-transform: translateY(102px);
+  -moz-transform: translateY(102px);
+  transform: translateY(102px);
+}
+
+#two:target ~ .Scene .Mannequin .Body {
+  -webkit-transform: rotateX(20deg) rotateZ(-10deg);
+  -moz-transform: rotateX(20deg) rotateZ(-10deg);
+  transform: rotateX(20deg) rotateZ(-10deg);
+}
+
+#two:target ~ .Scene .Mannequin .UpperBody {
+  -webkit-transform: rotateX(20deg) rotateY(17deg);
+  -moz-transform: rotateX(20deg) rotateY(17deg);
+  transform: rotateX(20deg) rotateY(17deg);
+}
+
+#two:target ~ .Scene .Mannequin .Arm.left {
+  -webkit-transform: rotateX(110deg) rotateZ(50deg);
+  -moz-transform: rotateX(110deg) rotateZ(50deg);
+  transform: rotateX(110deg) rotateZ(50deg);
+}
+
+#two:target ~ .Scene .Mannequin .Arm.left .Arm-lowerArm {
+  -webkit-transform: rotateZ(-50deg);
+  -moz-transform: rotateZ(-50deg);
+  transform: rotateZ(-50deg);
+}
+
+#two:target ~ .Scene .Mannequin .Arm.right {
+  -webkit-transform: rotateX(141deg) rotateZ(-20deg);
+  -moz-transform: rotateX(141deg) rotateZ(-20deg);
+  transform: rotateX(141deg) rotateZ(-20deg);
+}
+
+#two:target ~ .Scene .Mannequin .Arm.right .Arm-lowerArm {
+  -webkit-transform: rotateX(10deg) rotateZ(100deg);
+  -moz-transform: rotateX(10deg) rotateZ(100deg);
+  transform: rotateX(10deg) rotateZ(100deg);
+}
+
+#two:target ~ .Scene .Mannequin .Leg.left {
+  -webkit-transform: rotateX(10deg) rotateZ(18deg);
+  -moz-transform: rotateX(10deg) rotateZ(18deg);
+  transform: rotateX(10deg) rotateZ(18deg);
+}
+
+#two:target ~ .Scene .Mannequin .Leg.right {
+  -webkit-transform: rotateX(10deg) rotateZ(-18deg);
+  -moz-transform: rotateX(10deg) rotateZ(-18deg);
+  transform: rotateX(10deg) rotateZ(-18deg);
+}
+
+#two:target ~ .Scene .Mannequin .Leg-lowerLeg {
+  -webkit-transform: rotateX(-111deg);
+  -moz-transform: rotateX(-111deg);
+  transform: rotateX(-111deg);
+}
+
+#three:target ~ .Scene .Mannequin {
+  -webkit-transform: rotateX(-15deg);
+  -moz-transform: rotateX(-15deg);
+  transform: rotateX(-15deg);
+}
+
+#three:target ~ .Scene .Mannequin .Body {
+  -webkit-transform: rotateX(5deg);
+  -moz-transform: rotateX(5deg);
+  transform: rotateX(5deg);
+}
+
+#three:target ~ .Scene .Mannequin .Head {
+  -webkit-transform: rotateX(-20deg) rotateZ(10deg) rotateY(10deg);
+  -moz-transform: rotateX(-20deg) rotateZ(10deg) rotateY(10deg);
+  transform: rotateX(-20deg) rotateZ(10deg) rotateY(10deg);
+}
+
+#three:target ~ .Scene .Mannequin .UpperBody {
+  -webkit-transform: rotateX(25deg) rotateY(-30deg);
+  -moz-transform: rotateX(25deg) rotateY(-30deg);
+  transform: rotateX(25deg) rotateY(-30deg);
+}
+
+#three:target ~ .Scene .Mannequin .Arm.left {
+  -webkit-transform: rotateX(-70deg) rotateZ(30deg) rotateY(-90deg);
+  -moz-transform: rotateX(-70deg) rotateZ(30deg) rotateY(-90deg);
+  transform: rotateX(-70deg) rotateZ(30deg) rotateY(-90deg);
+}
+
+#three:target ~ .Scene .Mannequin .Arm.left .Arm-lowerArm {
+  -webkit-transform: rotateX(70deg);
+  -moz-transform: rotateX(70deg);
+  transform: rotateX(70deg);
+}
+
+#three:target ~ .Scene .Mannequin .Arm.right {
+  -webkit-transform: rotateX(30deg) rotateZ(-30deg);
+  -moz-transform: rotateX(30deg) rotateZ(-30deg);
+  transform: rotateX(30deg) rotateZ(-30deg);
+}
+
+#three:target ~ .Scene .Mannequin .Arm.right .Arm-lowerArm {
+  -webkit-transform: rotateX(60deg);
+  -moz-transform: rotateX(60deg);
+  transform: rotateX(60deg);
+}
+
+#three:target ~ .Scene .Mannequin .Leg.right {
+  -webkit-transform: rotateX(-35deg);
+  -moz-transform: rotateX(-35deg);
+  transform: rotateX(-35deg);
+}
+
+#three:target ~ .Scene .Mannequin .Leg.right .Leg-lowerLeg {
+  -webkit-transform: rotateX(-5deg);
+  -moz-transform: rotateX(-5deg);
+  transform: rotateX(-5deg);
+}
+
+#three:target ~ .Scene .Mannequin .Leg.left {
+  -webkit-transform: rotateX(45deg);
+  -moz-transform: rotateX(45deg);
+  transform: rotateX(45deg);
+}
+
+#three:target ~ .Scene .Mannequin .Leg.left .Leg-lowerLeg {
+  -webkit-transform: rotateX(-125deg);
+  -moz-transform: rotateX(-125deg);
+  transform: rotateX(-125deg);
+}
+
+#four:target ~ .Scene .Mannequin .Body {
+  -webkit-transform: rotateX(-10deg) rotateY(10deg);
+  -moz-transform: rotateX(-10deg) rotateY(10deg);
+  transform: rotateX(-10deg) rotateY(10deg);
+}
+
+#four:target ~ .Scene .Mannequin .UpperBody {
+  -webkit-transform: rotateX(-10deg) rotateY(10deg);
+  -moz-transform: rotateX(-10deg) rotateY(10deg);
+  transform: rotateX(-10deg) rotateY(10deg);
+}
+
+#four:target ~ .Scene .Mannequin .Arm.left {
+  -webkit-transform: rotateX(-40deg);
+  -moz-transform: rotateX(-40deg);
+  transform: rotateX(-40deg);
+}
+
+#four:target ~ .Scene .Mannequin .Arm.left .Arm-lowerArm {
+  -webkit-transform: rotateX(40deg);
+  -moz-transform: rotateX(40deg);
+  transform: rotateX(40deg);
+}
+
+#four:target ~ .Scene .Mannequin .Arm.right {
+  -webkit-transform: rotateX(30deg);
+  -moz-transform: rotateX(30deg);
+  transform: rotateX(30deg);
+}
+
+#four:target ~ .Scene .Mannequin .Arm.right .Arm-lowerArm {
+  -webkit-transform: rotateX(20deg);
+  -moz-transform: rotateX(20deg);
+  transform: rotateX(20deg);
+}
+
+#four:target ~ .Scene .Mannequin .Leg.left {
+  -webkit-transform: rotateX(40deg) rotateY(-20deg) rotateZ(10deg);
+  -moz-transform: rotateX(40deg) rotateY(-20deg) rotateZ(10deg);
+  transform: rotateX(40deg) rotateY(-20deg) rotateZ(10deg);
+}
+
+#four:target ~ .Scene .Mannequin .Leg.left .Leg-lowerLeg {
+  -webkit-transform: rotateX(-10deg);
+  -moz-transform: rotateX(-10deg);
+  transform: rotateX(-10deg);
+}
+
+#four:target ~ .Scene .Mannequin .Leg.right {
+  -webkit-transform: rotateX(-20deg) rotateY(10deg);
+  -moz-transform: rotateX(-20deg) rotateY(10deg);
+  transform: rotateX(-20deg) rotateY(10deg);
+}
+
+.PoseSelector {
+  position: fixed;
+  width: 200px;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.PoseSelector a {
+  display: block;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.PoseSelector a:hover {
+  opacity: 0.7;
+}
+
+.PoseSelector a ~ a {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#nopose:target ~ .PoseSelector a[href="#nopose"],
+.PoseSelector a[href="#nopose"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid #f1c40f;
+}
+
+#one:target ~ .PoseSelector a[href="#one"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid #f1c40f;
+}
+
+#two:target ~ .PoseSelector a[href="#two"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid #f1c40f;
+}
+
+#three:target ~ .PoseSelector a[href="#three"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid #f1c40f;
+}
+
+#four:target ~ .PoseSelector a[href="#four"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 5px solid #f1c40f;
+}
+
+#one:target ~ .PoseSelector a[href="#nopose"],
+#two:target ~ .PoseSelector a[href="#nopose"],
+#three:target ~ .PoseSelector a[href="#nopose"],
+#four:target ~ .PoseSelector a[href="#nopose"] {
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+.Links {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  z-index: 100;
+}
+
+.Links a {
+  color: #fff;
+  margin-left: 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+@-webkit-keyframes CameraRotate {
+  0% {
+    -webkit-transform: rotateY(0deg) rotateX(10deg);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg) rotateX(10deg);
+  }
+}
+
+@-moz-keyframes CameraRotate {
+  0% {
+    -moz-transform: rotateY(0deg) rotateX(10deg);
+  }
+  100% {
+    -moz-transform: rotateY(360deg) rotateX(10deg);
+  }
+}

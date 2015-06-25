@@ -46,7 +46,7 @@ class Sessions{
         header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
         header("Content-Type: text/html");
         header("Accept-Encoding: gzip, deflate");
-        //header("Pragma: public");//no-cache
+        header("Pragma: public");//no-cache
         //header("Expires: 0");
         //header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         //header("Cache-Control: post-check=0, pre-check=0",false);

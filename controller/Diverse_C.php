@@ -29,4 +29,24 @@ class Diverse_C extends Controller{
         $this->view('header');
         $this->view('diverse/filepicker');
     }
+
+    public function modal(){
+        $this->view('header');
+        $this->view('diverse/modal');
+    }
+
+    public function hexagon(){
+        $this->view('header');
+        $this->view('diverse/hexagon_trans');
+    }
+
+    public function code_edit(){
+        $this->view('header');
+        $this->view('diverse/code_editor');
+    }
+
+    public function manechin(){
+        $this->view('header');
+        $this->view('diverse/manechin');
+    }
 }
