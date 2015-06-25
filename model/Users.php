@@ -43,9 +43,7 @@ class Users extends DB_Manager{
                                                 'ip' => htmlspecialchars($_SERVER['REMOTE_ADDR']),
                                             'created' => date("Y/m/d H:i:s"),
                                             'updated' => date("Y/m/d H:i:s")])->insert();
-        if($result) return true;
-        $result->closeCursor();
-        return false;
+        return $result ? true : false;
     }
     
     public function get_uid($p) {
