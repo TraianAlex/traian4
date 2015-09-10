@@ -168,9 +168,39 @@
         color: CadetBlue;
     }
 </style>
+
+<main class="view">
+    <h1 class="title">
+        Micro Code Editor
+        <small>With syntax highlight*</small>
+    </h1>
+
+    <div class="window">
+        <div class="window-header">
+            <div class="action-buttons"></div>
+            <select class="language">
+                <option value="javascript" selected>JavaScript</option>
+                <option value="markup">HTML</option>
+                <option value="php">PHP</option>
+            </select>
+        </div>
+        <div class="window-body">
+            <textarea class="code-input"></textarea>
+            <pre class="code-output">
+				<code class="language-javascript">
+					
+				</code>
+            </pre>
+        </div>
+    </div>
+    <div class="credits">
+        *thanks to <a href="https://twitter.com/leaverou">Lea Verou</a> for <a href="http://prismjs.com/">Prism.js</a>
+    </div>
+</main>
+
 <script type="text/javascript">
-    ;
-    var MicroCode = (function () {
+
+    ;var MicroCode = (function () {
         return {
             init: function (inputSel, outputSel, languageSel) {
                 this.focusInput(inputSel);
@@ -246,39 +276,3 @@
 
     MicroCode.init('.code-input', '.code-output', '.language');
 </script>
-<main class="view">
-    <h1 class="title">
-        Micro Code Editor
-        <small>With syntax highlight*</small>
-    </h1>
-
-    <div class="window">
-        <div class="window-header">
-            <div class="action-buttons"></div>
-            <select class="language">
-                <option value="javascript" selected>JavaScript</option>
-                <option value="markup">HTML</option>
-                <option value="php">PHP</option>
-            </select>
-        </div>
-        <div class="window-body">
-            <textarea class="code-input">// Switch the language and put some code on me :)           ↑↑↑↑↑↑
-// This is a 'Hello World' example.
-
-function greetings(name){
-    name = name || "stranger";
-    return "Hello, " + name + "!";
-}
-
-window.onLoad = greetings();</textarea>
-            <pre class="code-output">
-				<code class="language-javascript">
-					
-				</code>
-            </pre>
-        </div>
-    </div>
-    <div class="credits">
-        *thanks to <a href="https://twitter.com/leaverou">Lea Verou</a> for <a href="http://prismjs.com/">Prism.js</a>
-    </div>
-</main>

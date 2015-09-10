@@ -24,7 +24,7 @@ print_r($get_name);
 echo getenv('PATH_INFO');
 
         
-echo getPageFanCount($page = 'traianvic');
+//echo getPageFanCount($page ='traianvic');
                
 function getPageFanCount($page) {
     $pageData = @file_get_contents('https://graph.facebook.com/'.$page);
@@ -44,6 +44,18 @@ function getPageFanCount($page) {
         echo 'page is not a valid FB Page';
     }
 }
+/* PHP SDK v4.0.0 */
+/* make the API call 
+$request = new FacebookRequest(
+  $session,
+  'GET',
+  '/me'
+);
+$response = $request->execute();
+$graphObject = $response->getGraphObject();
+/* handle the result 
+print_r($graphObject);*/
+
 //The HTTP_X_REQUESTED_WITH header is sent by all recent browsers that support AJAX requests.
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&

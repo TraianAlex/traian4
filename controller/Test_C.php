@@ -34,7 +34,7 @@ final class Test_C extends Controller{
     public function test_pass() {
         $this->view('header');
         $this->view('test/test_pass');
-        $this->view('test/read_meta');
+        //$this->view('test/read_meta');
     }
     
     public function tutorial() {

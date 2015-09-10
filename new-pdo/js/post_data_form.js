@@ -1,4 +1,4 @@
-$('form.ajax').on('submit', function(){
+/*$('form.ajax').on('submit', function(){
     var that = $(this);
         url = that.attr('action');
         type = that.attr('method');
@@ -18,14 +18,15 @@ $('form.ajax').on('submit', function(){
            data: data,
            success: function(response) {
                //console.log(response);
-               window.location.assign("http://localhost/traian4/new-pdo/ajax/post_data_form");
-               document.getElementById('message').innerHTML = response;
+               //window.location.assign("http://localhost/traian4/new-pdo/ajax/post_data_form");
+               //document.getElementById('message').innerHTML = response;
+               $('#message').html(response);
             }
         });
         return false;
 });
+*/
 
-/*
 $("form.ajax").submit(function(evt) {
     evt.preventDefault();
 
@@ -33,8 +34,6 @@ $("form.ajax").submit(function(evt) {
     var postData = $(this).serialize();
 
     $.post(url, postData, function(response){
-            document.getElementById('message').innerHTML = response;
-       
+            $('#message').html(response);
     });
 });
-*/

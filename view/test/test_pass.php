@@ -7,7 +7,17 @@ if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
 } else { 
     echo "<p>Welcome to PHP</p>";
 }
-    
+
+$greater_thatn_score_filter = function($lowestScore){
+    return function($s) use ($lowestScore) { return $s >= $lowestScore; };
+};
+//$a_scores_filter = function($s){ return $s >= 90; };
+$scores = array(89, 87, 77, 65, 98, 100, 99, 87, 82);
+$a_scores = array_filter($scores, $greater_thatn_score_filter(70)) ;
+foreach ($a_scores as $a_score) {
+    echo $a_score. "<br>";
+}
+
 $path = pathinfo($_SERVER["SCRIPT_FILENAME"]);
 if ($path["extension"] == "el") {
     header("Content-Type: text/x-script.elisp");
