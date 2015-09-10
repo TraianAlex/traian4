@@ -76,6 +76,12 @@
      <div class="row">
         <iframe src="//channel9.msdn.com/Shows/Web+Camps+TV/A-Peek-of-the-PHP-Ecosystem-Today/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
      </div>
+     <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>
 </div>
 
 <script type="text/javascript">
