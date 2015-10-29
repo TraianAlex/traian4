@@ -16,15 +16,15 @@
      // JScript gives us Conditional compilation, we can cope with old IE versions.
      // and security blocked creation of the objects.
      if (!xmlhttp){
-     try {
-     xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-     } catch (e) {
-     try {
-     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-     } catch (E) {
-     xmlhttp = false;
-     }
-     }
+         try {
+            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+         } catch (e) {
+            try {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (E) {
+                xmlhttp = false;
+            }
+         }
      }
      @end @*/
 

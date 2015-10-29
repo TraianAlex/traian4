@@ -125,7 +125,7 @@ function create_pass_form(){
 
     echo <<<_END
 Please enter the password below<br />
-<form method="post" action="http://localhost/traian3/new-pdo/test/test_pass">
+<form method="post" action="http://localhost/traian4/new-pdo/test/test_pass">
 <input type="password" name="pass" />
 <input type="submit" />
 </form>
