@@ -15,7 +15,7 @@
         $arr1 = explode('/', $_SERVER['REQUEST_URI']);
         echo '<pre>';print_r($arr1);echo '</pre>';
         
-        if ($_SERVER['HTTP_HOST'] == 'www.traian3.embassy-pub.ro'){
+        if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro'){
             if(defined("PATH") && PATH != NULL){
                 $clss = $arr1[2];
                 $method = $arr1[3];

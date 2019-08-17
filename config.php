@@ -3,7 +3,7 @@
 //-------- 1. CONSTANTS define the default path for includes -----------------------------
 
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro'){
+if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro'){
     define("APP_PATH", dirname(__FILE__));
     define('PATH', '');
     define("SITE_ROOT", "/new-pdo");
@@ -26,7 +26,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro'){
     define("ADDRESS", 'http://'.$_SERVER['HTTP_HOST']);//$_SERVER['SERVER_NAME']
     define("BASE", ADDRESS.SITE_ROOT.'/');
     define("DEBUG_MODE", true);//on the cloud change this with false
-        
+
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
     error_reporting( E_ALL );
@@ -53,7 +53,7 @@ Hash::init();
 
 //----------------------4 ERROR REPORTING ---------------------------------------------
 
-if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro') {
+if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro') {
     //set_error_handler('Errors::my_error_handler_prod');
     set_error_handler('Errors::my_error_handler', E_ALL);
     if (isset($_SESSION['system_error_message'])) {
@@ -62,7 +62,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.embassy-pub.ro') {
 }else{
     set_error_handler('Errors::my_error_handler', E_ALL);
     if (isset($_SESSION['system_error_message'])) {
-       error_log($_SESSION['system_error_message']."\n", 3, "C:\\Users\\victor92\OneDrive\htdocs\\traian4\\new-pdo\\error.log");
+       error_log($_SESSION['system_error_message']."\n", 3, "C:\\Users\\victor\\MEGA\\www\\traian4\\new-pdo\\error.log");
     }
 }
 
@@ -81,11 +81,12 @@ define('PUB_KEY', $sec['pub_key']);
 define('PRIV_KEY', $sec['priv_key']);
 
 //for hidden input in registration users
-define ('FV', crypt($sec['fv1'], '$'.$sec['fv2']));
+//define ('FV', crypt($sec['fv1'], '$'.$sec['fv2']));
+define ('FV', password_hash($sec['fv1'], PASSWORD_DEFAULT));
 
 //for my encryption functions
 //define('IV', mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND));
-define('IV', mcrypt_create_iv(32, MCRYPT_RAND));
+//define('IV', mcrypt_create_iv(32, MCRYPT_RAND));//
 define('KY', '&;'.$sec['ky'].'$!');//max8 if >8 error
 
 //for class Encription

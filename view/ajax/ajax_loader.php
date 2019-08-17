@@ -1,11 +1,14 @@
 
 <script src="<?=SITE_ROOT?>/inc/js/vendor/jquery-1.11.2.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.11.2.min.js"
+integrity="sha256-Ls0pXSlb7AYs7evhd+VLnWsZ/AqEHcXBeMZUycz/CcA="
+ crossorigin="anonymous"></script> -->
 <script type="text/javascript" src="<?=SITE_ROOT?>/js/ajax_loader.js"></script>
 <script type="text/javascript">
-    
+
     $(document).ready(ajaxLoader('http://localhost/traian4/new-pdo/js/toggle_text', 'contentLYR'));
     $(document).ready(ajaxLoader2('http://localhost/traian4/new-pdo/js/rollover_text', 'content2'));
-    
+
 </script>
 <!-- ../view/js/removing_nodes.php-->
 <!--body onload="ajaxLoader('http://localhost/traian4/new-pdo/js/toggle_text', 'contentLYR')"-->

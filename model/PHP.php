@@ -1,9 +1,9 @@
 <?php
 
-class PHP extends DB_Manager{
-    
-    public function extract_dic($word) {
-        
+class PHP extends DB_Manager
+{
+    public function extract_dic($word)
+    {
         //$objDb->exec('SET CHARACTER SET utf8');
         self::$instance = DB_Manager::get_instance($_POST)->database();
         $sql = "SELECT * FROM dictionary WHERE SUBSTRING(word, 1, 1) = ?";
@@ -12,9 +12,9 @@ class PHP extends DB_Manager{
         $search = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $search ?: false;
     }
-    
-    public function word_exist($word) {
-        
+
+    public function word_exist($word)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'dictionary';
         $count = self::$instance->select('word')->where('word', $word)->get();

@@ -9,7 +9,7 @@ chat.fetchMessages = function(){
             $('.chat .messages').html(data);
         }
     });
-}
+};
 
 chat.throwMessage = function(message){
     if($.trim(message).length != 0){
@@ -23,7 +23,7 @@ chat.throwMessage = function(message){
         }
     });
     }
-}
+};
 
 chat.entry = $('.chat .entry');
 chat.entry.bind('keydown', function(e){

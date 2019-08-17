@@ -21,26 +21,26 @@ class URI_Cache
 	{
 	    if (!ob_list_handlers())
 		{
-                if ($this->debug)
-                    print("Warning: Output buffering is not enabled. I am enabling it.");
-                    ob_start('ob_gzhandler');
+            if ($this->debug)
+                print("Warning: Output buffering is not enabled. I am enabling it.");
+            ob_start('ob_gzhandler');
 		}
-		
+
 		if ($dur) $this->cache_duration = $dur;
 		if ($dir) $this->cache_dir = $dir;
 		if ($ext) $this->cache_ext = $ext;
-		
-                $this->cache_dir = $_SERVER['DOCUMENT_ROOT'].$this->cache_dir;
+
+        $this->cache_dir = $_SERVER['DOCUMENT_ROOT'].$this->cache_dir;
 		if ($load_and_exit) $this->Load();
 
-                // check if output buffering is enabled...
+        // check if output buffering is enabled...
 		if (!file_exists($this->cache_dir))
 		{
 	        mkdir($this->cache_dir);
 	        chmod($this->cache_dir,0777);
 		}
 	}
-	
+
 	public function __destruct()
 	{
 	    if ($this->need_cache) return $this->CachePage();

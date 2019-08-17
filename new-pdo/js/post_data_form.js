@@ -1,4 +1,4 @@
-/*$('form.ajax').on('submit', function(){
+$('form.ajax').on('submit', function(){
     var that = $(this);
         url = that.attr('action');
         type = that.attr('method');
@@ -25,8 +25,8 @@
         });
         return false;
 });
-*/
 
+/*
 $("form.ajax").submit(function(evt) {
     evt.preventDefault();
 
@@ -37,3 +37,4 @@ $("form.ajax").submit(function(evt) {
             $('#message').html(response);
     });
 });
+*/

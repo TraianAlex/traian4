@@ -32,8 +32,7 @@
 /*
 * in this page must log in first
 */
-       $config_page['page_login'] = ['login_area', 'profile', 'personal_data', 'password', 'update_data',
-           'change_pass', 'chat', 'chat_exec', 'paypal'];
+       $config_page['page_login'] = [];//'login_area', 'profile', 'personal_data', 'password', 'update_data', 'change_pass', 'chat', 'chat_exec', 'paypal'
 /*
  * if is a condition
  */

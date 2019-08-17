@@ -179,7 +179,8 @@ class Sanitize{
         return $txt;
     }
 
-    function change_words($txt){
+    function change_words($txt)
+    {
         $pattern[] = "/prost|cacat|pisat|pula|sula|pizda|muie|sugi|coi|coios|taran|curva|jepat|fuck|futut|fut|fute|muist|bulesc|babardesc|homo|homosexual|bulit|futi|floci|bagami-as|bagamias|mata|tact-o|bitch|bitchass|blowjob|blow job|shit/";
         $replace[] = "<span style=\"color:red; font-style: italic;\">×××</span>";
         if(is_array($txt) && count($txt) > 0){
@@ -191,8 +192,8 @@ class Sanitize{
         }
     }
     
-    public static function add($array){
-
+    public static function add($array)
+    {
         $ret = array();
         foreach ($array as $key => $value){
             if (is_array($value)){
@@ -204,8 +205,8 @@ class Sanitize{
         return $ret;
     }
 
-    public static function strip($array){
- 
+    public static function strip($array)
+    {
         $ret = array();
         foreach ($array as $key => $value){
             if (is_array($value)){
@@ -217,11 +218,13 @@ class Sanitize{
         return $ret;
     }
 
-    public function array_sanitize(&$item){
+    public function array_sanitize(&$item)
+    {
         $item = htmlentities(strip_tags(stripslashes($item)));
     }
     
-    public function sanitize_data($item){
+    public function sanitize_data($item)
+    {
         return htmlentities(strip_tags(stripslashes($item)));
     }
 }

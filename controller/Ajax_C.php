@@ -1,37 +1,43 @@
 <?php
 
-class Ajax_C extends Controller{
-    
-    protected function main(){
+class Ajax_C extends Controller
+{    
+    protected function main()
+    {
         $this->model('Ajax');
     }
 
-    public function index() {
+    public function index()
+    {
         URL::to();
     }
     
-    public function ajax_nav() {
+    public function ajax_nav()
+    {
         $this->view('header');
         $this->view('ajax/ajax_nav');
     }
     
-    public function ajax_nav2() {
+    public function ajax_nav2()
+    {
         $this->view('header');
         $this->view('ajax/ajax_nav2');
     }
     
-    public function ajax_loader() {
+    public function ajax_loader()
+    {
         $this->view('header');
         $this->view('ajax/ajax_loader');
     }
     
-    public function predict_word() {//@FIXME sec part
+    public function predict_word()
+    {//@FIXME sec part
         $this->view('header');
         $this->view('ajax/predict_word');
     }
     
-    public function post_data() {
-
+    public function post_data()
+    {
         if ($this->input->exist('text') && $this->input->exist('feedback') && $this->input->exist('v1')){
             $this->valid->validation($_POST);
             $inserted = $this->Ajax->post_data_ajax();
@@ -46,8 +52,8 @@ class Ajax_C extends Controller{
         }
     }
     
-    public function post_data_form() {
-        
+    public function post_data_form()
+    {    
         if($this->input->exist('name') && $this->input->exist('email') && $this->input->exist('message')){
             try{
                 $this->valid->validation($_POST);
@@ -69,8 +75,8 @@ class Ajax_C extends Controller{
 /*
  * ajax autosuggest word
  */   
-    public function extract_data_get() {
-        
+    public function extract_data_get()
+    {
         if(isset($this->id)){
             $search = $this->Ajax->extract($this->id);
             foreach ($search as $row) {
@@ -81,8 +87,8 @@ class Ajax_C extends Controller{
 /*
  * not done yet
  */   
-    public function extract_data_post() {
-        
+    public function extract_data_post()
+    {
         if(isset($_POST['search_term']) == true && empty($_POST['search_term']) == false){
             $text = filter_input(INPUT_POST, 'search_term', FILTER_SANITIZE_STRING);
             $search = $this->Ajax->extract($text);
@@ -92,16 +98,16 @@ class Ajax_C extends Controller{
         }
     }
     
-    public function chat() {
-        
+    public function chat()
+    {
         $this->view('header');
         $this->view('ajax/chat');
     }
 /*
  * added if(strlen($message['user_id']) === 10) to name google or fb users with session
  */   
-    public function chat_exec() {
-         
+    public function chat_exec()
+    {
         if(isset($_POST['method']) === true && empty($_POST['method']) === false){
             $method = trim($_POST['method']);
             if($method === 'fetch'){
@@ -130,21 +136,21 @@ class Ajax_C extends Controller{
         }
     }
     
-    public function search_flickr() {
-        
+    public function search_flickr()
+    {
         $this->view('header');
         $this->view('ajax/search_flickr');
         $this->view('ajax/satelite');
     }
     
-    public function search_address() {
-        
+    public function search_address()
+    {
         $this->view('header');
         $this->view('ajax/search_address');
     }
     
-    public function tabs() {
-        
+    public function tabs()
+    {
         $this->view('header');
         $this->view('ajax/right');
     }

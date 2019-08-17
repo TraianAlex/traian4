@@ -65,7 +65,7 @@ function create_captcha(){
     echo <<<_END
 <img src="$result_c[2]" /><br />
 Please enter the word shown<br />
-<form method="post" action="http://localhost/traian3/new-pdo/test/captcha">
+<form method="post" action="http://localhost/traian4/new-pdo/test/captcha">
 <input type="hidden" name="token" value="$result_c[1]" />
 <input type="text" name="captcha" />
 <input type="submit" />

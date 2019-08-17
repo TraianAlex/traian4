@@ -1,7 +1,7 @@
 <?php
 
-    function get_url(){
-
+    function get_url()
+    {
         $raw_url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
         $arr1 = explode('/', trim(str_replace(SITE_ROOT, '', parse_url($raw_url)['path']), '/'));
         foreach ($arr1 as $item):
@@ -11,7 +11,8 @@
         return $url;
     }
 
-    function show_date() {
+    function show_date()
+    {
         date_default_timezone_set("America/New_York");
         echo '<div style="float:right">' . date("Y/m/d H:i:s") . '</div><br>';
     }
@@ -19,15 +20,21 @@
  * show_error
  * @param type $message
  */
-    function debug_print($message) {
+    function debug_print($message)
+    {
         if (DEBUG_MODE)
             echo $message;
+    }
+
+    function dd($var)
+    {
+        echo '<pre>'; print_r($var); echo '</pre>'; exit;
     }
 /**
  * set date time zone in Rss
  */
-    function setDateTime($item) {
-
+    function setDateTime($item)
+    {
         $date = new DateTime($item->pubDate);
         $date->setTimezone(new DateTimeZone('America/Toronto'));
         $offset = $date->getOffset();

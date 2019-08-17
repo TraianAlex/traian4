@@ -1,34 +1,40 @@
 <?php
 
-final class Users_C extends Controller{
-    
-    protected function main(){
+final class Users_C extends Controller
+{    
+    protected function main()
+    {
         $this->model('Users');
     }
                 
-    public function index() {
+    public function index()
+    {
         parent::view('header');
         parent::view('users/form_login');
     }
 
-    public function login_area() {
+    public function login_area()
+    {
         $this->view('header');
         $this->view('users/login_area');
     }
     
-    public function portofolio() {
+    public function portofolio()
+    {
         $this->view('header');
         $this->view('users/portofolio');
     }
 
-    public function log_out() {
+    public function log_out()
+    {
         $this->session->logout();
         URL::to();
     }
 
 /*---------------------------------------------------------------------------------*/
     
-    public function login() {
+    public function login()
+    {
         
         if ($this->input->exist('submit') && $this->input->get('submit') == 'Sign In') {
             $this->valid->validation($_POST);
@@ -45,8 +51,8 @@ final class Users_C extends Controller{
         }
     }
 
-    private function auth_user($row){
-
+    private function auth_user($row)
+    {
         foreach($row as $row):
             $this->session->set_session('user', $row->username);
             $this->session->set_session('user_id', (int)$row->id_user);
@@ -55,20 +61,22 @@ final class Users_C extends Controller{
         endforeach;
     }
     
-    public static function check_user() {
+    public static function check_user()
+    {
         $data = call_user_func([new Users($_POST), 'get_uid'], Sessions::get('user'));
         return ($data == false) ? false : true;
     }
 
 /*-----------------------------------------------------------------------------------*/
 
-    public function forgot_password() {
+    public function forgot_password()
+    {
         $this->view('header');
         $this->view('users/form_forgot_pass');
     }
 
-    public function send_pass() {
-
+    public function send_pass()
+    {
         if ($this->input->exist('send_id') && $this->input->get('send_id') == 'Send link') {
             try{
                 $this->valid->validation($_POST);
@@ -87,8 +95,8 @@ final class Users_C extends Controller{
 
 /*---------------------------------------------------------------------------------------*/
     
-    public function register() {
-        
+    public function register()
+    {
         if ($this->input->exist('add_new_user') && $this->input->get('add_new_user') == 'Register'){
             try{
                 $this->session->set_session('reg', $_POST);
@@ -112,8 +120,8 @@ final class Users_C extends Controller{
 
 /*-----------------------------------------------------------------------------------*/
     
-    public function profile() {
-
+    public function profile()
+    {
         //$vb = setVerb($view);
         //$pic = self::set_foto_profile($row['profile_pic_id']);
         //$arrData = [$this->model('Users', 'get_users', $_SESSION['user'])];
@@ -126,8 +134,8 @@ final class Users_C extends Controller{
             $this->view('users/links_profile_oath', $arrData2);
     }
     
-    public function personal_data() {
-
+    public function personal_data()
+    {
         $user = $this->Users->get_users($_SESSION['user']);
         //$pic = self::set_foto_profile($user['profile_pic_id']);
         //$delete = $this->setDeleteLink($user['profile_pic_id']);
@@ -135,8 +143,8 @@ final class Users_C extends Controller{
         $this->view('users/personal_data_form', $user);
     }
     
-    public function update_data() {
-        
+    public function update_data()
+    {    
         if ($this->input->exist('change_data') && $this->input->get('change_data') == 'Change data'){
             try{
                 $this->valid->validation($_POST);
@@ -153,8 +161,8 @@ final class Users_C extends Controller{
         }
     }
     
-    public function change_pass() {
-        
+    public function change_pass()
+    {    
         if ($this->input->exist('password') && $this->input->get('password') == 'Change'){
             try{
                 $this->valid->validation($_POST);
@@ -174,7 +182,8 @@ final class Users_C extends Controller{
 /**
  * form chenge password
  */
-    public function password(){
+    public function password()
+    {
         $this->view('header');
         $this->view('users/pass_form');
     }
@@ -202,8 +211,8 @@ final class Users_C extends Controller{
 //        }
 //    }
 
-    public function oath_ajax_login() {
-        
+    public function oath_ajax_login()
+    {    
         if ($this->input->exist('B') && !empty($_POST['B']) && !empty($_POST['G'])){
             $id = $this->clean_post($this->input->get('B')); //Google ID
             $email = $this->clean_post($this->input->get('G')); // Email ID
@@ -220,8 +229,8 @@ final class Users_C extends Controller{
         }
     }
 
-    private function auth_user_oath($name, $id, $profile_pic){
-
+    private function auth_user_oath($name, $id, $profile_pic)
+    {
         $this->session->set_session('user', $name);
         $this->session->set_session('user_id', $id);
         $this->session->set_session('submit', "Welcome");
@@ -229,13 +238,14 @@ final class Users_C extends Controller{
         $this->session->set_session('pic', $profile_pic);
     }
     
-    private function clean_post($data){
-	$data = trim(strip_tags($data));
-	return $data;
+    private function clean_post($data)
+    {
+    	$data = trim(strip_tags($data));
+    	return $data;
     }
 
-    public function oath_fb_login() {
-
+    public function oath_fb_login()
+    {
         if ($this->input->exist('id') && !empty($_POST['id'])) {
             extract($_POST);
             $check_fb = $this->Users->check_fb($id);
@@ -248,8 +258,8 @@ final class Users_C extends Controller{
         }
     }
     
-    private function auth_user_fb($name, $id){
-
+    private function auth_user_fb($name, $id)
+    {
         $this->session->set_session('user', $name);
         $this->session->set_session('user_id', $id);
         $this->session->set_session('submit', "Welcome");

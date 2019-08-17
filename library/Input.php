@@ -27,4 +27,32 @@ class Input{
 //        return '';
         return isset($_POST[$item]) ? $_POST[$item] : (isset($_GET[$item]) ? $_GET[$item] : '');
     }
+
+    public function get_var()
+    {
+      $num_args = func_num_args();
+      $vars = array();
+
+       if ($num_args >= 2) {
+           $method = strtoupper(func_get_arg(0));
+
+           if (($method != 'SESSION') && ($method != 'GET') && ($method != 'POST') && ($method != 'SERVER') && ($method != 'COOKIE') && ($method != 'ENV')) {
+               die('The first argument of pt_register must be one of the following: GET, POST, SESSION, SERVER, COOKIE, or ENV');
+         }
+
+           $varname = "HTTP_{$method}_VARS";
+           global ${$varname};
+
+           for ($i = 1; $i < $num_args; $i++) {
+               $parameter = func_get_arg($i);
+
+               if (isset(${$varname}[$parameter])) {
+                   global $$parameter;
+                   $$parameter = ${$varname}[$parameter];
+              }
+           }
+       } else {
+           die('You must specify at least two arguments');
+       }
+    }
 }

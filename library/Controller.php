@@ -1,7 +1,7 @@
 <?php
 
-class Controller {
-
+class Controller
+{
     protected $valid;
     protected $session;
     protected $input;
@@ -9,18 +9,19 @@ class Controller {
     protected $page;
     protected $id;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->valid = new Validate();
         $this->session = new Sessions();
         $this->input = new Input();
-        $this->route = get_url();
+        $this->route = get_url();//request
         $this->page = $this->getMethod();
         $this->id = $this->getId();
         if(method_exists($this, "main")) $this->main();
     }
     
-    public function index() {
- 
+    public function index()
+    {
         $this->filter_page();
         $this->view('head');
         $this->dispatch();
@@ -28,8 +29,8 @@ class Controller {
         $this->session->delete_session_messages();
     }
     
-    protected function view($templateName, $arrPassValue=''){
-
+    protected function view($templateName, $arrPassValue='')
+    {
         $view_path = APP_PATH . '/view/' . $templateName . '.php';
         if(file_exists($view_path)):
             $arrData = isset($arrPassValue) ? $arrPassValue : '';
@@ -39,8 +40,8 @@ class Controller {
         endif;
     }
 
-    protected function model($class){
-
+    protected function model($class)
+    {
         $model_path = APP_PATH."/model/$class.php";
         file_exists($model_path) ?
             include_once($model_path):
@@ -50,8 +51,8 @@ class Controller {
         unset($class);
     }
                 
-    private function dispatch() {
-        
+    private function dispatch()
+    {    
         $class = Registry::setClass();
         $controller = is_subclass_of($class, __CLASS__) && is_a($class, __CLASS__) ?
             Registry::get(): new Users_C();
@@ -60,22 +61,22 @@ class Controller {
         //method_exists($controller, $this->page) ? $controller->$this->page() : $controller->index();
     }
     
-    private function getMethod(){
-
+    private function getMethod()
+    {
         file_exists(APP_PATH.'/application/page_rules.php') ?
             include APP_PATH."/application/page_rules.php": "";
         $method = isset($this->route[1]) ? $this->route[1] : $config_page['default_page'];
         return $this->valid->check($method);
     }
 
-    protected function getId(){
-        
+    protected function getId()
+    {    
         $id = isset($this->route[2]) ? $this->route[2] : null;
         return $this->valid->check($id);
     }
     
-    private function filter_page() {
-        
+    private function filter_page()
+    {    
         file_exists(APP_PATH.'/application/page_rules.php') ?
             include APP_PATH."/application/page_rules.php": "";
         if(in_array($this->page, $config_page['all_pages'])):
@@ -90,8 +91,8 @@ class Controller {
         endif;
     }
     
-    private function checkUserPage() {
-
+    private function checkUserPage()
+    {
         file_exists(APP_PATH.'/application/page_rules.php') ?
             include APP_PATH."/application/page_rules.php" : "";
         if(!in_array($this->page, $config_page['all_pages']) ||
@@ -105,8 +106,8 @@ class Controller {
 /*
  * check the hash from every get in admin page
  */
-    private function check_hash() {
-
+    private function check_hash()
+    {
         $h = new Crypt_HMAC(KEY);
         $array = ['class' => $this->route[0],
                   'page' => $this->page,
@@ -119,8 +120,8 @@ class Controller {
         endif;
     }
  
-    private function checkAdminPage() {
-
+    private function checkAdminPage()
+    {
         file_exists(APP_PATH.'/application/page_rules.php') ?
             include APP_PATH."/application/page_rules.php" : "";
         if (!in_array($this->page, $config_page['admin']) ||

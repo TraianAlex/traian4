@@ -12,4 +12,8 @@ if($row){?>
         <!--a class='button' href='<?php //SITE_ROOT?>/messages/messages/<?php //$view?>'>View <?php //$vb[1]?> messages</a--><?php
 }else{
     echo "The user data is missing";
-}
+}?>
+
+<div class="row">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/JpYWt3r_xgI" frameborder="0" allowfullscreen></iframe>
+</div>

@@ -1,8 +1,9 @@
 <?php
 
-final class Test_C extends Controller{
-    
-    public function index() {
+final class Test_C extends Controller
+{
+    public function index()
+    {
         URL::to();
     }
 

@@ -71,7 +71,7 @@
     display:block;
 }
 </style>
-<div style="background-color: #673AB7;">
+<div style="background-color: #673AB7;padding: 10px 0 10px 0;">
 <div class="clock-circle">
   <div class="clock-face">
    <div id="hour" class="clock-hour"></div>

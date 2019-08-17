@@ -4,18 +4,19 @@
         <strong>Before : </strong><?=$texttoshort?><br><?php
         echo "<strong>After : </strong><a href=\"$texttoshort\">" . ShortenText($texttoshort, 60, "/-/-/") . "</a><br>";?>
         <strong>Before : </strong><?=$text2 = "Nulla quis lorem ut libero malesuada feugiat. Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Proin eget tortor risus. Nulla quis lorem ut libero malesuada feugiat. Proin eget tortor risus. Curabitur aliquet quam id dui posuere blandit. Donec sollicitudin molestie malesuada. Donec rutrum congue leo eget malesuada.<br>";?>
-        <strong>After1 : </strong><?=ShortenText($text2, 60, "<a href='#'> ...more... </a>");?>
+        <strong>After1 : </strong><?=ShortenText($text2, 60, "<a href='#'> ...read... </a>");?>
         <strong>After2 : </strong><?=shorten_text($text2, 60);?>
     </div>
 </div>
 
 <?php
 
-function shorten_text($text, $chars = 450){
+function shorten_text($text, $chars = 450)
+{
   $text = $text." ";
   $text = substr($text, 0, $chars);
   $text = substr($text, 0, strrpos($text,' '));
-  $text = $text."<a href='#'> ...more</a>";
+  $text = $text."<a href='".SITE_ROOT."/php/shorten_text'> ...go to this link</a>";
   return $text;
 }
 

@@ -1,17 +1,20 @@
 <?php
 
-class JQuery_C extends Controller{
-    
-    public function index() {
+class JQuery_C extends Controller
+{
+    public function index()
+    {
         URL::to();
     }
     
-    public function insert_new_element() {
+    public function insert_new_element()
+    {
         $this->view('header');
         $this->view('jquery/insert_element');
     }
     
-    public function menu() {
+    public function menu()
+    {
         $this->view('jquery/menu');
     }
     
@@ -19,14 +22,15 @@ class JQuery_C extends Controller{
         //$this->view('header');
         //$this->view('jquery/tab_system');
     //}
-    
-    public function analog_clock() {
+
+    public function analog_clock()
+    {
         $this->view('header');
         $this->view('jquery/analog_clock');
     }
     
-    public function datatable() {
-        
+    public function datatable()
+    {
         $this->view('header');
         $this->view('jquery/datatable');
     }

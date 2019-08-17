@@ -11,21 +11,21 @@ $menu->addRootItem('item3');//item3
 $menu->addRootItem('home', 'http://localhost/traian4/new-pdo/users/nologin_area', '_self');//item4
 //to remove ITEM  :
 /**
- $menu->removeItemByPath('0\1\0');
- OR
- $item1->remove();
+* $menu->removeItemByPath('0\1\0');
+* OR
+* $item1->remove();
 **********************************************/
 //TO Add css class for MENU,root item,child item :
 /**
- $menu->cssClass= "classNames";
- $menu->GetItemByPath('0\1')->cssClass= "classNames";
+* $menu->cssClass= "classNames";
+* $menu->GetItemByPath('0\1')->cssClass= "classNames";
 **********************************************/
 $menu->cssClass = "menu";
 //TO modify or edit Feature item :
 /**
-$menu->GetItemByPath('0\0\1')->title = "enter new title";
-OR
-$item1->title = "enter new title"; 
+* $menu->GetItemByPath('0\0\1')->title = "enter new title";
+* OR
+* $item1->title = "enter new title"; 
 **********************************************/
 if ($menu->save())?>
     <div class='container page-content'>

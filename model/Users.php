@@ -1,7 +1,7 @@
 <?php
 
-class Users extends DB_Manager{
-    
+class Users extends DB_Manager
+{
     protected $data = [
         "id_user" => "",
         "user" => "",
@@ -13,31 +13,32 @@ class Users extends DB_Manager{
         "city" => "",
         "email" => "",
         "p_email" => ""];//profile email
-     
-    public function login_user() {
-        
+
+    public function login_user()
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
-        $arr = self::$instance->select('id_user, username, password, salt')->where('username', $this->data['user'])
+        $arr = self::$instance->select('id_user, username, password')->where('username', $this->data['user'])
                  ->where('uid', '3')->get_obj();
         if(self::$instance->get_result_count() == 1){
             foreach($arr as $log){
-                $res = Hash::validate_password($this->data['pwd'], PBKDF2_HASH_ALGORITHM.':'.PBKDF2_ITERATIONS.':'.$log->salt.':'.$log->password);
+                //$res = Hash::validate_password($this->data['pwd'], PBKDF2_HASH_ALGORITHM.':'.PBKDF2_ITERATIONS.':'.$log->salt.':'.$log->password);
+                $res = password_verify($this->data['pwd'], $log->password);
                 return $res ? $arr : false ;
             }
         }
         return false;
     }
-    
-    public function register_user() {
-        
+
+    public function register_user()
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
-        $pak = Hash::create_hash($this->data['pwd']);
-        $pwd = explode(':', $pak);
+        //$pak = Hash::create_hash($this->data['pwd']);
+        //$pwd = explode(':', $pak);
+        $pak = password_hash($this->data['pwd'], PASSWORD_BCRYPT);
         $result = self::$instance->values(['username' => $this->data['newuser'],
-                                           'password' => $pwd[3],
-                                              'salt' => $pwd[2],
+                                           'password' => $pak,//$pwd[3],
                                               'email' => $this->data['email'],
                                                'uid' => '3',
                                                 'ip' => htmlspecialchars($_SERVER['REMOTE_ADDR']),
@@ -45,9 +46,9 @@ class Users extends DB_Manager{
                                             'updated' => date("Y/m/d H:i:s")])->insert();
         return $result ? true : false;
     }
-    
-    public function get_uid($p) {
-        
+
+    public function get_uid($p)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $res = self::$instance->select('uid')->where('username', $p)->get();
@@ -57,8 +58,8 @@ class Users extends DB_Manager{
  * confirm if a username is taken
  * profile
  */
-    public static function get_users($p) {
-
+    public static function get_users($p)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $res = self::$instance->select('username, password, email')->where('username', $p)->where('uid', '3')->get_obj();
@@ -69,8 +70,8 @@ class Users extends DB_Manager{
  * confirmation that a email is registered for a pass recover
  * check email and skip by curent user when try to change the email
  */
-    public static function get_email($p) {
-
+    public static function get_email($p)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $res = self::$instance->select('email')->where('email', $p)->where('uid', '3')->get();
@@ -82,7 +83,7 @@ class Users extends DB_Manager{
 //            return $res;
 //        }
         return Sessions::exist('temp_email') ? ($p != Sessions::get('temp_email') && $res) : TRUE ? $res : FALSE;
-    }  
+    }
 /**
  * after the user submit the form with his email he get the new temp hash password
  * send email with the new password
@@ -91,15 +92,15 @@ class Users extends DB_Manager{
  * @param string $p
  * @return string
  */
-    public function send_email_reset(){
-
+    public function send_email_reset()
+    {
         $this->data['email'] = filter_input(INPUT_POST, 'f_email', FILTER_SANITIZE_EMAIL);
         $p = substr ( md5(uniqid(rand(), true)), 3, 10);
         $content ="Dear user,
     Your password to log in has been temporarily changed to: $p
     Please log into ".ADDRESS.SITE_ROOT." using this password.";
         $subject = "Email verification";
-        $from = "FROM: www.traian3.embassy-pub.ro";
+        $from = "FROM: http://traian4.vic.com.ro";
         if($this->resetPass($p, $this->data['email'])){
             mail($this->data['email'], $subject, $content, $from);
             throw new Exception('&#x2714; Instructions regarding resetting your password have been sent to '.$this->data['email']);
@@ -111,14 +112,15 @@ class Users extends DB_Manager{
  * @param int $id
  * @param string $email
  */
-    private function resetPass($p, $email){
-
+    private function resetPass($p, $email)
+    {
         $row = $this->getUserByEmail($email);
-        $pak = Hash::create_hash($p);
-        $pwd = explode(':', $pak);
+        //$pak = Hash::create_hash($p);
+        $pak = password_hash($p, PASSWORD_BCRYPT);
+        //$pwd = explode(':', $pak);
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
-        $res = self::$instance->set(['password' => $pwd[3], 'salt' => $pwd[2]])
+        $res = self::$instance->set(['password' => $pak])
                 ->where('email', $email)->where('uid', '3')->update();
         return $res ? true : false;
     }
@@ -126,21 +128,21 @@ class Users extends DB_Manager{
  * get username by email to set up the new temp pass
  * @param string $uid
  */
-    private function getUserByEmail($email) {
-
+    private function getUserByEmail($email)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $result = self::$instance->select('username')->where('email', strip_tags($email))->where('uid', '3')->get();
         return $result ?: false;
-    } 
+    }
 /**
  * p_email = profile email has another validation than email
  * the user can change the email and don't massage him that
  * his email already exist
  * edit profile
  */
-    public function update(){
-
+    public function update()
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $res = self::$instance->set(['email' => $this->data['p_email'], 'updated'=> date("Y/m/d H:i:s")])
@@ -152,47 +154,48 @@ class Users extends DB_Manager{
  * @param string $p
  * @return boolean
  */
-    public function change_password(){
-
+    public function change_password()
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
-        $pak = Hash::create_hash($this->data['pwd']);
-        $pwd = explode(':', $pak);
-        $res = self::$instance->set(['password' => $pwd[3], 'salt' => $pwd[2], 'updated'=> date("Y/m/d H:i:s")])
+        //$pak = Hash::create_hash($this->data['pwd']);
+        $pak = password_hash($this->data['pwd'], PASSWORD_BCRYPT);
+        //$pwd = explode(':', $pak);
+        $res = self::$instance->set(['password' => $pak, 'updated'=> date("Y/m/d H:i:s")])
                 ->where('username', $_SESSION['user'])->where('uid', '3')->update();
         return $res ? true : false;
     }
 /*
  * validation pass for changing
  */
-    public static function checkHashConfirmation($user) {
-
+    public static function checkHashConfirmation($user)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
-        $statement = self::$instance->select('password, salt')->where('username', $user)->where('uid', '3')->get();
+        $statement = self::$instance->select('password')->where('username', $user)->where('uid', '3')->get();
         return $statement ?: false;
     }
 /*
  * create a image email
- */  
-    public static function get_user_data($id) {
-        
+ */
+    public static function get_user_data($id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'users';
         $result = self::$instance->select('email')->where('id_user', $id)->where('uid', '3')->get();
         return $result ?: false;
     }
-    
-    public function check_oath($id) {
-        
+
+    public function check_oath($id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users';
         $arr = self::$instance->select('*')->where('fld_google_id', $id)->get();
         return $arr ? true : false;
     }
-    
-    public function insert_oath($name, $email, $id) {
-        
+
+    public function insert_oath($name, $email, $id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users';
         $time = time();
@@ -204,34 +207,34 @@ class Users extends DB_Manager{
         $result->closeCursor();
         return false;
     }
-    
-    public function update_oath($name, $email, $id) {
-        
+
+    public function update_oath($name, $email, $id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users';
         $res = self::$instance->set(['fld_user_name' => $name, 'fld_user_email' => $email])
                 ->where('fld_google_id', $id)->update();
         return $res ? true : false;
     }
-    
-    public function get_users_oath($id) {
 
+    public function get_users_oath($id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users';
         $res = self::$instance->select('fld_user_name, fld_user_email')->where('fld_google_id', $id)->get_obj();
         return $res ?: false;
     }
-    
-    public function check_fb($id) {
-        
+
+    public function check_fb($id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users_fb';
         $arr = self::$instance->select('*')->where('fld_facebook_id', $id)->get();
         return $arr ? true : false;
     }
-    
-    public function insert_fb($name, $email, $id) {
-        
+
+    public function insert_fb($name, $email, $id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users_fb';
         $time = time();
@@ -243,9 +246,9 @@ class Users extends DB_Manager{
         $result->closeCursor();
         return false;
     }
-    
-    public function update_fb($name, $email, $id) {
-        
+
+    public function update_fb($name, $email, $id)
+    {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'tbl_users_fb';
         $res = self::$instance->set(['fld_user_name' => $name, 'fld_user_email' => $email])

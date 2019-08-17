@@ -54,13 +54,13 @@ function umpleCaramizile()
     caramida.style.width="30px";
     caramida.style.height="10px";
     caramida.style.position="absolute";
-            caramida.style.top = pozitiaCaramiziiY + "px";
-            caramida.style.left = pozitiaCaramiziiX + "px";
-            pozitiaCaramiziiX += 30;
-            cadru.appendChild(caramida);
-            caramizi.push(caramida);
-        }
+        caramida.style.top = pozitiaCaramiziiY + "px";
+        caramida.style.left = pozitiaCaramiziiX + "px";
+        pozitiaCaramiziiX += 30;
+        cadru.appendChild(caramida);
+        caramizi.push(caramida);
     }
+  }
     function verificareColiziuniiCaramizilor(caramizi, obiect)
     {
         for (var i = 0; i < caramizi.length; i++)

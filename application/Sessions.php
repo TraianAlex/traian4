@@ -1,37 +1,43 @@
 <?php
 
-class Sessions{
+class Sessions
+{
+    public function __construct()
+    {
+    }
 
-    public function __construct() {}
-
-    public static function exist($name) {
+    public static function exist($name)
+    {
         return (isset($_SESSION[$name])) ? true : false;
     }
-    
-    public static function set_session($name, $value) {
+
+    public static function set_session($name, $value)
+    {
         return $_SESSION[$name] = $value;
     }
-    
-    public static function get($name) {
+
+    public static function get($name)
+    {
         return $_SESSION[$name];
     }
-    
-    public static function delete($names) {
-        if (is_array($names) && !empty($names)){
-            foreach($names as $name){
-                if(self::exist($name)){
+
+    public static function delete($names)
+    {
+        if (is_array($names) && !empty($names)) {
+            foreach ($names as $name) {
+                if (self::exist($name)) {
                     unset($_SESSION[$name]);
                 }
             }
         } else {
-            if(self::exist($names)){
+            if (self::exist($names)) {
                 unset($_SESSION[$names]);
             }
         }
     }
 
-    public static function init() {
-        
+    public static function init()
+    {
         self::setHeader();
         self::setSession();
         self::setCanary();
@@ -40,25 +46,25 @@ class Sessions{
         self::set_session('start', time());
     }
 
-    private static function setHeader() {
-
+    private static function setHeader()
+    {
         header("Expires: Tu, 31 Dec 2015 05:00:00 GMT");
         header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
         header("Content-Type: text/html");
-        header("Accept-Encoding: gzip, deflate");
-        header("Pragma: public");//no-cache
+        header("Accept-Encoding: deflate, gzip;q=1.0, *;q=0.5");
+        header("Pragma: public");//no-cache / private
         //header("Expires: 0");
         //header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         //header("Cache-Control: post-check=0, pre-check=0",false);
-        header("Cache-Control: public");//no-cache//private or private_no_expire
+        header("Cache-Control: public, max-age=8640");//no-cache//private or private_no_expire
         //header("Content-Description: File Transfer");
         //header("Content-Type: application/vnd.ms-excel");
         //header('Content-Disposition: attachment; filename="fileToExport.xls"');
     }
 
-    private static function setSession() {
-
-        session_regenerate_id();
+    private static function setSession()
+    {
+        //session_regenerate_id();
         session_start();
         if (!self::exist('generated') || self::get('generated') < (time() - 300)) {
             session_regenerate_id();
@@ -84,17 +90,17 @@ class Sessions{
         //session_cache_expire(60); // in minutes
         ini_set('session.use_strict_mode', 1);
     }
-    
-    private static function setCanary() {
 
+    private static function setCanary()
+    {
         if (empty($_SESSION['canary'])) {
             self::set_session('canary', sha1($_SERVER['REMOTE_ADDR']));
             session_regenerate_id(false);
         }
     }
 
-    private static function setUserAgent() {
-
+    private static function setUserAgent()
+    {
         if (empty($_SESSION['userAgent'])) {
             self::set_session('userAgent', sha1($_SERVER['HTTP_USER_AGENT']));
             session_regenerate_id(false);
@@ -104,107 +110,116 @@ class Sessions{
  * index
  * @return null
 */
-    public static function setUser() {
-
-        if (!self::exist('user'))
+    public static function setUser()
+    {
+        if (!self::exist('user')) {
             self::set_session('user', null);
+        }
         return self::get('user');
     }
  /**
  * in header, footer
  */
-    public static function chechAuth() {
-
-        if(!self::exist('user'))
-            echo "onClick=\"auth()\"";     
+    public static function chechAuth()
+    {
+        if (!self::exist('user')) {
+            echo "onClick=\"auth()\"";
+        }
     }
-    
-    public function attempt() {
 
-        if(self::exist('att') && self::get('att') > 4){
+    public function attempt()
+    {
+        if (self::exist('att') && self::get('att') > 4) {
             return false;
         }
-        if(!self::exist('att')){
-           self::set_session('att', 0);
-           return true;
+        if (!self::exist('att')) {
+            self::set_session('att', 0);
+            return true;
         }
     }
-    
-    public function checkUser() {
 
-        if(!self::exist('id') || !self::exist('user') || !self::get('user')
+    public function checkUser()
+    {
+        if (!self::exist('id') || !self::exist('user') || !self::get('user')
              || self::get('id') != sha1(K.sha1(session_id().K)) ||
             (self::get('userAgent') != sha1($_SERVER['HTTP_USER_AGENT'])) ||
-            (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))){
+            (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))) {
             self::delete(array('user_id', 'user'));
-                return false;
-        }elseif (time() > self::get('start') + self::get('timelimit')) {
+            return false;
+        } elseif (time() > self::get('start') + self::get('timelimit')) {
             $this->destroySession();
             return false;
-        }else{
+        } else {
             self::set_session('start', time());
             return true;
         }
     }
-    
-    public function checkAdmin() {
 
-       if(!self::exist('id') || !self::exist('user') || !self::get('user') ||
+    public function checkAdmin()
+    {
+        if (!self::exist('id') || !self::exist('user') || !self::get('user') ||
                self::get('id') != sha1(K1.sha1(session_id().K1)) ||
                (self::get('userAgent') != sha1($_SERVER['HTTP_USER_AGENT'])) ||
-               (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))){
+               (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))) {
             self::delete(array('id', 'userAgent', 'canary', 'user'));
             return false;
-        }elseif (time() > self::get('start') + self::get('timelimit')) {
+        } elseif (time() > self::get('start') + self::get('timelimit')) {
             $this->destroySession();
             return false;
-        }else{
+        } else {
             self::set_session('start', time());
             return true;
         }
     }
-    
-    public function set_token(){
 
+    public function set_token()
+    {
         $t = sha1(strval(date('W')) . 'YourSpecialValueHere');
         $this->set_session('t', $t);
         output_add_rewrite_var('t', $t);
     }
 
-    public function check_token(){
-
-        if (!isset($_REQUEST['t']) || $_REQUEST['t'] != $this->get('t'))
-            Errors::handle_error2(null,'You must login to see this page.');
+    public function check_token()
+    {
+        if (!isset($_REQUEST['t']) || $_REQUEST['t'] != $this->get('t')) {
+            Errors::handle_error2(null, 'You must login to see this page.');
+        }
     }
-    
-    private function destroySession(){
 
-        if (isset($_COOKIE[session_name()]))
+    private function destroySession()
+    {
+        if (isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', time()-86400, '/');
+        }
         $_SESSION = array();
         session_unset(); //session_destroy();
-    } 
+    }
 
-    public function logout() {
-        
+    public function logout()
+    {
         self::delete(array('user_id', 'user', 'pagesize'));
-        if(self::exist('gif') && file_exists(self::get('gif'))) unlink (self::get('gif'));
-        if (isset($_COOKIE[session_name()]))
+        if (self::exist('gif') && file_exists(self::get('gif'))) {
+            unlink(self::get('gif'));
+        }
+        if (isset($_COOKIE[session_name()])) {
             setcookie(session_name(), '', time()-86400, '/');
+        }
         session_destroy();
     }
-    
-    public function delete_session(){
+
+    public function delete_session()
+    {
         self::delete(array('reg', 'token', 'n', 'v', 'time'));
     }
 
-    public function delete_session_messages(){
+    public function delete_session_messages()
+    {
         self::delete(array('submit', 'success_msg', 'error_msg', 'track'));
         ob_flush();
     }
-  
-    public function __destruct() {
+
+    public function __destruct()
+    {
         session_commit();
     }
-
 }

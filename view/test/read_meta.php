@@ -1,6 +1,6 @@
 <?php
 
-$result = getUrlData2('http://localhost/traian3/new-pdo');
+$result = getUrlData2('http://localhost/traian4/new-pdo');
 echo '<pre>';print_r($result);echo '</pre>';
 echo $result['title'], '<br>';
 
@@ -61,7 +61,7 @@ function getUrlContents2($url, $maximumRedirections = null, $currentRedirection 
   2) Support for Unicode (UTF-8) encoded Meta lines.
   3) An option not to convert htmlentities - if you plan to actually use the results and not just display them.
  */
-$result = getUrlData('http://localhost/traian3/new-pdo', true);
+$result = getUrlData('http://localhost/traian4/new-pdo', true);
 echo '<pre>';
 print_r($result, true);
 echo '</pre>';

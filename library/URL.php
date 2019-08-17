@@ -9,31 +9,38 @@ class URL{
     private $style;
     private $file;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->base_url = SITE_ROOT;
     }
 
-    public function add_param($param_val){
+    public function add_param($param_val)
+    {
         $this->parameters = $param_val;
     }
 
-    public function set_text($value){
+    public function set_text($value)
+    {
         $this->text = $value;
     }
 
-    public function set_js($value){
+    public function set_js($value)
+    {
         $this->js = $value;
     }
     
-    public function set_style($value){
+    public function set_style($value)
+    {
         $this->style = $value;
     }
     
-    public function set_file($value){
+    public function set_file($value)
+    {
         $this->file = $value;
     }
 
-    public function render(){
+    public function render()
+    {
         $r = '';
         if(count($this->parameters))
             $r .= $this->base_url .'/'. $this->parameters;
@@ -42,7 +49,8 @@ class URL{
         return $r;
     }
 
-    public function r_link(){
+    public function r_link()
+    {
         if(trim($this->text) == '')
             $text = $this->render();
         else
@@ -50,8 +58,8 @@ class URL{
         return '<a '.$this->style.' href="'.$this->render().'" '.$this->js.'>'.$text.'</a>';
     }
 
-    public static function link($param, $text=null, $js=null, $style=null, $file=null){
-
+    public static function link($param, $text=null, $js=null, $style=null, $file=null)
+    {
         $url = new URL();
         $url->set_file($file);
         $url->set_text($text);
@@ -65,7 +73,8 @@ class URL{
 /*
 * redirect url
 */
-    public static function to($url=null){
+    public static function to($url=null)
+    {
         if($url){
             if(is_numeric($url)){
                 switch ($url) {
@@ -87,11 +96,13 @@ class URL{
         }
     }
 //link <li>
-    public static function link_l($url, $label, $target=null){
+    public static function link_l($url, $label, $target=null)
+    {
         return '<li><a href="'.$url.'" target='.$target.'>'. $label .'</a></li>';
     }
 //simple link    
-    public static function link_s($url, $label, $target=null){
+    public static function link_s($url, $label, $target=null)
+    {
         return "<a href=".$url." target=".$target.">$label</a>";
     }
 /**
@@ -100,8 +111,8 @@ class URL{
  * @param string $section
  * @param string $title
  */
-     public static function create_crumbs() {
-
+     public static function create_crumbs()
+     {
         $class = isset(get_url()[0]) ? get_url()[0] : 'users';
         $page = isset(get_url()[1]) ? get_url()[1] : 'index';
         $id = isset(get_url()[2]) ? get_url()[2] : null;
@@ -118,8 +129,8 @@ class URL{
  * 4 if same domain, use referring URL
  * 7 otherwise, send to main page
  */
-    private static function back() {
-
+    private static function back()
+    {
         if (isset($_SERVER['HTTP_REFERER']) && isset($_SERVER['HTTP_HOST'])):
             $url2 = parse_url($_SERVER['HTTP_REFERER']);
             if ($url2['host'] == $_SERVER['HTTP_HOST']):
@@ -138,20 +149,20 @@ class URL{
  * @param type $url
  * @param type $string
  */
-    public static function xlink($class, $page, $id, $string){
-
+    public static function xlink($class, $page, $id, $string)
+    {
         $h = new Crypt_HMAC(KEY);
         return "<a href='".SITE_ROOT."/".$h->create_parameters(array('class' => $class, 'page'=>$page,'id'=>$id))."'>$string</a>";
     }
 //for sidebar
-    public static function xlink2($style, $class, $page, $id, $string){
-
+    public static function xlink2($style, $class, $page, $id, $string)
+    {
         $h = new Crypt_HMAC(KEY);
         return "<a $style href='".SITE_ROOT."/".$h->create_parameters(array('class' => $class, 'page'=>$page,'id'=>$id))."'>$string</a>";
     }
 
-    public static function xlink3($class, $page, $id=null){
-
+    public static function xlink3($class, $page, $id=null)
+    {
         $h = new Crypt_HMAC(KEY);
         return $h->create_parameters(array('class' => $class, 'page' => $page, 'id' => $id));
     }
@@ -161,8 +172,8 @@ class URL{
  * @param type $page
  * @param type $url
  */
-    public static function xdelete($class, $page, $id){
-
+    public static function xdelete($class, $page, $id)
+    {
         $h = new Crypt_HMAC(KEY);
         return "<a href='".SITE_ROOT."/".$h->create_parameters(array("class" => $class, "page" => $page,
             "id" => $id))."'><img class='delete_user' src='".SITE_ROOT."/images/delete.png' width=15 alt=''></a>";

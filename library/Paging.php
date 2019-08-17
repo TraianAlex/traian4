@@ -18,7 +18,8 @@ class Paging extends Base{
       public  $total_pages;
       private $num_of_rows;
 
-    public function __construct($fields, $table, $per_page){
+    public function __construct($fields, $table, $per_page)
+    {
         $this->per_page = $per_page;
         $this->num_of_rows = $this->rowCount($fields, $table);
         $this->total_pages = ceil($this->num_of_rows / $this->per_page);
@@ -27,20 +28,20 @@ class Paging extends Base{
         $this->limit = "{$this->start_from},{$this->per_page}";
     }
 
-    private function rowCount($fields, $table){
-
+    private function rowCount($fields, $table)
+    {
         $result = $this->select($fields, $table);
-	return $result->rowCount();
+	      return $result->rowCount();
     }
 
-    public function getResult($fields, $table, $order){
-
+    public function getResult($fields, $table, $order)
+    {
         $result = $this->select($fields, $table, null, null, $order, $this->limit);
         return $result;
     }
 
-    private function setThisPage() {
-        
+    private function setThisPage()
+    {    
        if ($this->total_pages == 0) {
            $this->page = 1;
            echo "No entries....";
@@ -55,8 +56,8 @@ class Paging extends Base{
        return $this->page;
     }
 
-    public function count_page(){
-        
+    public function count_page()
+    {    
         $count = '<p id="picCount">[';
         $count .= $this->start_from + 1;
         if ($this->start_from + 1 < $this->num_of_rows) {
@@ -72,24 +73,24 @@ class Paging extends Base{
         return $count;
     }
 
-    public function prev($class, $page, $prev="Previous") {
-        
+    public function prev($class, $page, $prev="Previous")
+    {    
       if($this->page > 1) {
         $pr = $this->page - 1;
         return "<div class='boxx'><a class='prev' href=".SITE_ROOT."/{$class}/{$page}/{$pr}>{$prev}</a></div> ";
       }
     }
 
-    public function next($class, $page, $next="Next"){
-        
+    public function next($class, $page, $next="Next")
+    {    
        if($this->page < $this->total_pages) {
          $nx = $this->page + 1;
          return "<div class='boxx'><a class='next' href=".SITE_ROOT."/{$class}/{$page}/{$nx}>{$next}</a></div>";
        }
     }
 
-    public function curent($class, $page){
-        
+    public function curent($class, $page)
+    {    
         for($pages = 1; $pages <= $this->total_pages; $pages++){
             if(($this->page) == $pages){
                 echo " <div class='boxx'><b>{$this->page}</b></div> ";
@@ -101,8 +102,8 @@ class Paging extends Base{
 /*
  * put all together from above //me
  */
-    public function number_pages($class, $page) {
-
+    public function number_pages($class, $page)
+    {
     if($this->total_pages === 1){ echo '';}
     else{
         echo '<div class="pagination">';
@@ -115,31 +116,32 @@ class Paging extends Base{
  
     /*--------------------------------------------------------------------------------*/
 
-    public function getResult2($fields, $table, $order, $like){
-        
+    public function getResult2($fields, $table, $order, $like)
+    {    
         $result = $this->select($fields, $table, null, null, $order, $this->limit, $like);
         return $result;
     }
 
-    public function prev2($class, $page, $prev="Previous") {
-        
+    public function prev2($class, $page, $prev="Previous")
+    {    
       if($this->page > 1) {
         $pr = $this->page - 1;
         //return "<a class='prev' href=".SITE_ROOT."/{$page}/{$pr}>{$prev}</a> ";
         return URL::xlink2('class="prev"', $class, $page, $pr, $prev);
-    }
+      }
     }
 
-    public function next2($class, $page, $next="Next"){
-        
+    public function next2($class, $page, $next="Next")
+    {    
        if($this->page < $this->total_pages) {
          $nx = $this->page + 1;
          //return "<a class='next' href=".SITE_ROOT."/{$page}/{$nx}>{$next}</a>";
          return URL::xlink2('class="next"', $class, $page, $nx, $next);
-    }
+      }
     }
 
-    public function curent2($class, $page){
+    public function curent2($class, $page)
+    {
         for($pages = 1; $pages <= $this->total_pages; $pages++){
             if(($this->page) == $pages){
                 echo " <b>{$this->page}</b> ";

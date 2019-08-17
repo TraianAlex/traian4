@@ -14,14 +14,14 @@ $img = create_captcha1($_SESSION['secure']);
 
 ?>Please enter the word shown<br />
 <img src="<?=$img?>" alt=""><br>
-<form method="post" action="http://localhost/traian3/new-pdo/php/captcha2">
+<form method="post" action="http://localhost/traian4/new-pdo/php/captcha2">
 <input type="hidden" name="token" value="<?php //$token?>" />
 <input type="text" name="secure" />
 <input type="submit" />
 </form><?php
 
-function create_captcha1($text){
-    
+function create_captcha1($text)
+{    
     ob_end_clean();
     ob_start();
     header('Content-type: image/jpeg');
