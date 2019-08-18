@@ -10,13 +10,11 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro') {
     define("PATH_FILE", APP_PATH.SITE_ROOT);
     define("ADDRESS", "");
     define("BASE", 'http://'.$_SERVER['HTTP_HOST']);
-    //define("DEBUG_MODE", false);
-    define("DEBUG_MODE", true);//on the cloud change this with false
+    define("DEBUG_MODE", true);//define("DEBUG_MODE", false);
 
     //ini_set('display_errors', 0);
     ini_set('display_errors', 1);
-    ini_set('error_reporting', E_ALL);
-    //error_reporting( 0 );
+    ini_set('error_reporting', E_ALL);//error_reporting( 0 );
     error_reporting(E_ALL);
 } else {
     define("APP_PATH", dirname(__FILE__));
@@ -50,7 +48,6 @@ if (file_exists(APP_PATH.'/library/recaptchalib.php')) {
 
 //------------ 3 INI CLASSES -------------------------------------------------------
 
-//require_once APP_PATH."/library/Core.php";
 Core::initialize();
 Sessions::init();
 CSRF::init();
@@ -84,6 +81,7 @@ define("KS", $sec['ks']);//for admin
 // Get a key from https://www.google.com/recaptcha/admin/create
 define('PUB_KEY', $sec['pub_key']);
 define('PRIV_KEY', $sec['priv_key']);
+define('SEC_CAPTCHA2', $sec['secret_captcha2']);
 
 //for hidden input in registration users
 //define ('FV', crypt($sec['fv1'], '$'.$sec['fv2']));
