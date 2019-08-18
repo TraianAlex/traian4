@@ -72,11 +72,11 @@ class Sessions
             URL::to();
         }
         ob_start();
-        ini_set('session.use_cookies', 1);
-        ini_set('session.use_only_cookies', 0); //1 ?
+        //ini_set('session.use_cookies', 1);
+        //ini_set('session.use_only_cookies', 0); //1 ?
         //ini_set('session.cookie_lifetime', '600');
         //ini_set('session.save_path', '/home/user/myaccount/sessions');
-        ini_set('session.cookie_httponly', true);
+        //ini_set('session.cookie_httponly', true);
         //ini_set('session.cookie_secure', true);//if use you can't login
 
         //ini_set('session.entropy_file', '/dev/urandom');
@@ -88,7 +88,7 @@ class Sessions
         //session_cache_limiter('public');////no-cache//private or private_no_expire
         //session_cache_limiter('private, must-revalidate');
         //session_cache_expire(60); // in minutes
-        ini_set('session.use_strict_mode', 1);
+        //ini_set('session.use_strict_mode', 1);
     }
 
     private static function setCanary()
@@ -106,10 +106,10 @@ class Sessions
             session_regenerate_id(false);
         }
     }
-/**
- * index
- * @return null
-*/
+    /**
+     * index
+     * @return null
+    */
     public static function setUser()
     {
         if (!self::exist('user')) {
@@ -117,9 +117,9 @@ class Sessions
         }
         return self::get('user');
     }
- /**
- * in header, footer
- */
+    /**
+    * in header, footer
+    */
     public static function chechAuth()
     {
         if (!self::exist('user')) {

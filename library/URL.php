@@ -42,7 +42,7 @@ class URL{
     public function render()
     {
         $r = '';
-        if(count($this->parameters))
+        if($this->parameters)
             $r .= $this->base_url .'/'. $this->parameters;
         if(trim($this->file) != '')
             $r .= '/'. $this->file;
@@ -65,7 +65,7 @@ class URL{
         $url->set_text($text);
         $url->set_js($js);
         $url->set_style($style);
-        if(count($param) > 0){
+        if(strlen($param) > 0){
             $url->add_param($param);
         }
         return $url->r_link();
