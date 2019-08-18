@@ -19,11 +19,15 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro') {
     //error_reporting( 0 );
     error_reporting(E_ALL);
 } else {
-    define('PATH', '/traian4');
-    define("APP_PATH", $_SERVER['DOCUMENT_ROOT'].PATH);
-    define("SITE_ROOT", PATH."/new-pdo");
-    define("PATH_FILE", $_SERVER['DOCUMENT_ROOT'].SITE_ROOT);
-    define("ADDRESS", 'http://'.$_SERVER['HTTP_HOST']);//$_SERVER['SERVER_NAME']
+    define("APP_PATH", dirname(__FILE__));
+    if ($_SERVER['HTTP_HOST'] === 'localhost') {
+        define('PATH', '/traian4');
+        define("SITE_ROOT", PATH.'/new-pdo');
+    } else {
+        define("SITE_ROOT", '');
+    }
+    define("PATH_FILE", $_SERVER['DOCUMENT_ROOT']);
+    define("ADDRESS", 'http://'.$_SERVER['HTTP_HOST']);
     define("BASE", ADDRESS.SITE_ROOT.'/');
     define("DEBUG_MODE", true);//on the cloud change this with false
 
@@ -46,6 +50,7 @@ if (file_exists(APP_PATH.'/library/recaptchalib.php')) {
 
 //------------ 3 INI CLASSES -------------------------------------------------------
 
+//require_once APP_PATH."/library/Core.php";
 Core::initialize();
 Sessions::init();
 CSRF::init();

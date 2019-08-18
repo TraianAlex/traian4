@@ -78,7 +78,7 @@ file_exists(APP_PATH.'/application/page_rules.php') ?
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="<?=SITE_ROOT?>/jQuery/insert_new_element">Insert new element</a></li>
                       <li><a href="<?=SITE_ROOT?>/jQuery/menu">Menu</a></li>
-                      <li><a href="<?=PATH?>/view/jquery/tab_system.php">Tab system</a></li>
+                      <li><a href="<?=BASE?>/view/jquery/tab_system.php">Tab system</a></li>
                       <li><a href="<?=SITE_ROOT?>/jQuery/datatable">Datatable</a></li>
                       <li class="divider"></li>
                       <li><a href="<?=SITE_ROOT?>/jQuery/analog_clock">Analog Clock</a></li>
