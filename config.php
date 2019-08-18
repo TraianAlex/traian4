@@ -3,7 +3,7 @@
 //-------- 1. CONSTANTS define the default path for includes -----------------------------
 
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro'){
+if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro') {
     define("APP_PATH", dirname(__FILE__));
     define('PATH', '');
     define("SITE_ROOT", "/new-pdo");
@@ -17,8 +17,8 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro'){
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
     //error_reporting( 0 );
-    error_reporting( E_ALL );
-}else{
+    error_reporting(E_ALL);
+} else {
     define('PATH', '/traian4');
     define("APP_PATH", $_SERVER['DOCUMENT_ROOT'].PATH);
     define("SITE_ROOT", PATH."/new-pdo");
@@ -29,7 +29,7 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro'){
 
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
-    error_reporting( E_ALL );
+    error_reporting(E_ALL);
 }
 
 //--------------- 2. INCLUDES -------------------------------------------------------
@@ -40,7 +40,7 @@ file_exists(APP_PATH.'/application/util_func.php') ?
 file_exists(APP_PATH.'/library/Core.php') ?
     include_once APP_PATH."/library/Core.php" : "";
 
-if(file_exists(APP_PATH.'/library/recaptchalib.php')){
+if (file_exists(APP_PATH.'/library/recaptchalib.php')) {
     require_once APP_PATH.'/library/recaptchalib.php';
 }
 
@@ -57,12 +57,12 @@ if ($_SERVER['HTTP_HOST'] == 'www.traian4.vic.com.ro') {
     //set_error_handler('Errors::my_error_handler_prod');
     set_error_handler('Errors::my_error_handler', E_ALL);
     if (isset($_SESSION['system_error_message'])) {
-        error_log($_SESSION['system_error_message']."\n", 3,"/home/remb4372/public_html/traian4/new-pdo/error.log");
+        error_log($_SESSION['system_error_message']."\n", 3, "/home/remb4372/public_html/traian4/new-pdo/error.log");
     }
-}else{
+} else {
     set_error_handler('Errors::my_error_handler', E_ALL);
     if (isset($_SESSION['system_error_message'])) {
-       error_log($_SESSION['system_error_message']."\n", 3, "C:\\Users\\victor\\MEGA\\www\\traian4\\new-pdo\\error.log");
+        error_log($_SESSION['system_error_message']."\n", 3, "/Users/victor/MEGA/www/traian4/new-pdo/error.log");
     }
 }
 
@@ -82,7 +82,7 @@ define('PRIV_KEY', $sec['priv_key']);
 
 //for hidden input in registration users
 //define ('FV', crypt($sec['fv1'], '$'.$sec['fv2']));
-define ('FV', password_hash($sec['fv1'], PASSWORD_DEFAULT));
+define('FV', password_hash($sec['fv1'], PASSWORD_DEFAULT));
 
 //for my encryption functions
 //define('IV', mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND));
