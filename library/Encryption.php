@@ -26,15 +26,15 @@
  * +--------------------------------------------------------------------------
  */
 
-Class Encryption {
-
+Class Encryption
+{
 	private $key;
 	private $iv;
 	private $typeEncryption;
 	private $separator;
 
-	public function __construct($key =NULL, $type = NULL, $separator=NULL){
-
+	public function __construct($key =NULL, $type = NULL, $separator=NULL)
+    {
             // if don't set all values, return error
             if( $key == NULL or $type == NULL or $separator == NULL ){
                 exit('No set all attributes in class Encryption');
@@ -47,8 +47,8 @@ Class Encryption {
             $this->iv = mcrypt_create_iv(32, MCRYPT_RAND);
 	}
 
-	public function encode($value) {
-
+	public function encode($value)
+    {
             if($value == ''){
                 return false;
             }
@@ -59,8 +59,8 @@ Class Encryption {
             return $this->inverseEncryption($Str);
 	}
         
-	public function decode($value) {
-
+	public function decode($value)
+    {
             if($value == ''){
                 return false;
             }
@@ -71,8 +71,8 @@ Class Encryption {
                     MCRYPT_MODE_ECB, $this->iv));
 	}
 
-	private function inverseEncryption($e){
-
+	private function inverseEncryption($e)
+    {
             $replaceA = str_replace(',', '', $e);
 
             $strrev = strrev($replaceA);
@@ -87,8 +87,8 @@ Class Encryption {
             return $variableMounting;
 	}
 
-	private function reverseEncryption($e){
-
+	private function reverseEncryption($e)
+    {
             $exVariable = explode($this->separator, $e);
 
             $varA = $exVariable[0];
@@ -101,8 +101,8 @@ Class Encryption {
             return $strrev;
 	}
 
-	private function filterSeparator($val = NULL){
-
+	private function filterSeparator($val = NULL)
+    {
             $allowedSeparator = array(
                     '!','@','#','%','&','*','/','+','=','~','?');
 

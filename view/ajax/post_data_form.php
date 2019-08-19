@@ -1,7 +1,7 @@
 <div class="container page-content">
     <div class="row">
         <?=Errors::show_errors()?>
-        <form method="post" action="<?=SITE_ROOT?>/ajax/post_data_form/<?=T?>" class="ajax">
+        <form method="post" action="<?=SITE_ROOT?>/ajax/post_data_form_action/<?=T?>" class="ajax">
             <div>
                 <input type="text" name="name" placeholder="Your name">
             </div>

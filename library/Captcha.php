@@ -1,19 +1,19 @@
 <?php
 
-class Captcha{
-    
-    public static function verifyResponse($resp){// Grab the session value and destroy it
-
-        $val = (int)$_SESSION['challenge'];
+class Captcha
+{
+    public static function verifyResponse($resp)
+    {
+        $val = (int)$_SESSION['challenge'];// Grab the session value and destroy it
         unset($_SESSION['challenge']);
-        if($resp != $val){// Returns TRUE if equal, FALSE otherwise
+        if($resp != $val) {// Returns TRUE if equal, FALSE otherwise
             Errors::handle_error2(null,'&#x2718; Please answer the anti-spam question correctly!');
             exit;
         }
     }
 
-    public static function generateChallenge(){
-
+    public static function generateChallenge()
+    {
         $numbers = array(mt_rand(1,4), mt_rand(1,4));// Store two random numbers in an array
         $_SESSION['challenge'] = $numbers[0] + $numbers[1];//Store the correct answer in a session
         $converted = array_map('ord', $numbers);//Convert the numbers to their ASCII codes
@@ -21,8 +21,8 @@ class Captcha{
               &#$converted[0];&#32;&#43;&#32;&#$converted[1];&#63;'></label>";
   }
 
-    public static function create_captcha1() {?>
-
+    public static function create_captcha1()
+    {?>
           <div class="element-recaptcha"><label class="title"></label>
           <script type="text/javascript">var RecaptchaOptions = {theme : "clean"};</script>
           <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=<?=PUB_KEY?>&theme=clean">
@@ -31,7 +31,8 @@ class Captcha{
           <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
           <input type="hidden" name="recaptcha_response_field" value="manual_challenge"></noscript>
           <script type="text/javascript">
-                if (/#invalidcaptcha$/.test(window.location)) (document.getElementById("recaptcha_widget_div")).className += " error";
+                if (/#invalidcaptcha$/.test(window.location))
+                    (document.getElementById("recaptcha_widget_div")).className += " error";
           </script>
           </div><?php
     }
@@ -69,7 +70,7 @@ class Captcha{
         if (!$res['success']) {
             Errors::handle_error2(null,'&#x2718; Please re-enter your reCAPTCHA.');
             exit;
-        }else{
+        } else {
             return true;
         }
     }

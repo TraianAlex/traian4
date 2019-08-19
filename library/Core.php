@@ -1,19 +1,19 @@
 <?php
 
-class Core{
-
+class Core
+{
     private static $_paths = ["model", "view", "controller", "application", "library", ""];
 
-    public static function initialize(){
-
-        if (!defined("APP_PATH")){
+    public static function initialize()
+    {
+        if (!defined("APP_PATH")) {
             throw new Exception("APP_PATH not defined");
         }
         // fix extra backslashes in $_POST/$_GET
-        if (get_magic_quotes_gpc()){
+        if (get_magic_quotes_gpc()) {
            $globals = array("_POST","_GET","_COOKIE","_REQUEST","_SESSION");
-           foreach ($globals as $global){
-                if (isset($GLOBALS[$global])){
+           foreach ($globals as $global) {
+                if (isset($GLOBALS[$global])) {
                     $GLOBALS[$global] = self::_clean($GLOBALS[$global]);
                 }
             }
@@ -27,15 +27,16 @@ class Core{
         ini_set('date.timezone', 'America/Toronto');
     }
 
-    protected static function _clean($array){
-        if (is_array($array)){
+    protected static function _clean($array)
+    {
+        if (is_array($array)) {
             return array_map(__CLASS__."::_clean", $array);
         }
         return stripslashes($array);
     }
 
-    protected static function _autoload($class){
-
+    protected static function _autoload($class)
+    {
         $paths = explode(PATH_SEPARATOR, get_include_path());
         $flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE;
         $file = $class.".php";
@@ -49,8 +50,8 @@ class Core{
         throw new Exception("{$class} not found");
     }
 
-     private static function _load($item) {
+     private static function _load($item)
+     {
         return APP_PATH.DIRECTORY_SEPARATOR.$item;
    }
-
 }

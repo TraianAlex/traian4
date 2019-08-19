@@ -18,7 +18,10 @@ class Admins extends DB_Manager
     {
         self::$instance = DB_Manager::get_instance($_POST)->database();
         self::$instance->table = 'admins';
-        $arr = self::$instance->select('id_admin, username, password')->where('username', $this->data['user'])->where('uid', '7')->get_obj();
+        $arr = self::$instance->select('id_admin, username, password')
+                              ->where('username', $this->data['user'])
+                              ->where('uid', '7')
+                              ->get_obj();
         if (self::$instance->get_result_count() == 1) {
             foreach ($arr as $log) {
                 //$res = Hash::validate_password($this->data['pwd'], PBKDF2_HASH_ALGORITHM.':'.PBKDF2_ITERATIONS.':'.$log->salt.':'.$log->password);
@@ -42,13 +45,16 @@ class Admins extends DB_Manager
         // $pak = Hash::create_hash($this->data['pwd']);
         // $pwd = explode(':', $pak);
         $pak = password_hash($this->data['pwd'], PASSWORD_BCRYPT);
-        $result = self::$instance->values(array('username' => $this->data['newadmin'],
+        $result = self::$instance->values([
+                                            'username' => $this->data['newadmin'],
                                            'password' => $pak,
                                               'email' => $this->data['email_adm'],
                                                'uid' => '7',
                                                 'ip' => htmlspecialchars($_SERVER['REMOTE_ADDR']),
                                             'created' => date("Y/m/d H:i:s"),
-                                            'updated' => date("Y/m/d H:i:s")))->insert();
+                                            'updated' => date("Y/m/d H:i:s")
+                                            ])
+                                    ->insert();
         if ($result) {
             return true;
         }
@@ -82,7 +88,8 @@ class Admins extends DB_Manager
 //        }else {
 //            return $res;
 //        }
-        return Sessions::exist('temp_email') ? ($p != Sessions::get('temp_email') && $res) : true ? $res : false;
+        return Sessions::exist('temp_email') ?
+            ($p != Sessions::get('temp_email') && $res) : true ? $res : false;
     }
 
     public function get_users()

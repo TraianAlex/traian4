@@ -5,7 +5,8 @@
  * @update   2003-04-29 12:12:37
  */
 
-class Cache {
+class Cache
+{
     /**
      * url wanta cached
      *
@@ -38,7 +39,8 @@ class Cache {
      * @param int $time Cached time
      * @return void
      */
-    public function __construct($path='cache/',$time=120) {
+    public function __construct($path='cache/',$time=120)
+    {
         global $HTTP_SERVER_VARS;
         $query_str = preg_replace('/(&submit\.[x|y]=[0-9]+)+$/','',$HTTP_SERVER_VARS['REQUEST_URI']);
         $this->cached_file = md5($query_str).'.cache';
@@ -57,7 +59,8 @@ class Cache {
      *
      * @access public
      */
-    public function start() {
+    public function start()
+    {
         global $HTTP_GET_VARS;
         if ( ($HTTP_GET_VARS['update']!="") || (!file_exists($this->cached_path.$this->cached_file)) || ($this->cached_modtime > $this->cached_time) ) {
             ob_start(); 
@@ -72,9 +75,13 @@ class Cache {
      *
      * @access public
      */
-    public function end() {
+    public function end()
+    {
         global $HTTP_GET_VARS;
-        if ( ($HTTP_GET_VARS['update']!="") || (!file_exists($this->cached_path.$this->cached_file)) || ($this->cached_modtime > $this->cached_time) ) {
+        if (($HTTP_GET_VARS['update']!="") ||
+            (!file_exists($this->cached_path.$this->cached_file)) ||
+            ($this->cached_modtime > $this->cached_time)
+        ) {
             $contents = ob_get_contents();
             ob_end_clean(); 
             $HTTP_GET_VARS['update']!="" ? chmod($this->cached_path.$this->cached_file,0777) : '';
@@ -90,7 +97,8 @@ class Cache {
      *
      * @access public
      */
-    private function flush() {
+    private function flush()
+    {
         if (function_exists('exec')) {
             if (strpos(strtoupper(PHP_OS),'WIN') !== false) {
                 $cmd = 'del /s '.str_replace('/','\\',$this->cached_path).'*.cache';
@@ -112,5 +120,4 @@ class Cache {
         }
         return;
     }
-
-} //End Class
+}

@@ -6,8 +6,8 @@
  * Class MenuController
  * @package WtMenu\Controller
  */
-class MenuController {
-
+class MenuController
+{
     /**
      * @var string
      */
@@ -31,14 +31,16 @@ class MenuController {
     /**
      * @param array $array_menu
      */
-    public function __construct(array $array_menu) {
+    public function __construct(array $array_menu)
+    {
         $this->setArrayMenu($array_menu);
     }
 
     /**
      * @return $this
      */
-    public function start() {
+    public function start()
+    {
         $this->make($this->getArrayMenu());
         return $this;
     }
@@ -46,7 +48,8 @@ class MenuController {
     /**
      * @return string
      */
-    public function show() {
+    public function show()
+    {
         return $this->getOutput();
     }
 
@@ -54,8 +57,8 @@ class MenuController {
      * @param array $array_level
      * @return void
      */
-    protected function make(array $array_level) {
-
+    protected function make(array $array_level)
+    {
         $this->setOutput("<" . $this->getInit() . ">\n");
 
         foreach ($array_level as $itens) {
@@ -76,7 +79,8 @@ class MenuController {
      * @param array $array_item
      * @return void
      */
-    protected function makeItens(array $array_item) {
+    protected function makeItens(array $array_item)
+    {
         $this->setOutput("<" . $this->getItem() . ">");
 
         if (isset($array_item['link']))
@@ -88,7 +92,8 @@ class MenuController {
             $this->setOutput("</a>");
     }
 
-    public function closeTag($string) {
+    public function closeTag($string)
+    {
         $tag = explode(" ", $string);
         return $tag[0];
     }
@@ -97,7 +102,8 @@ class MenuController {
      * @param mixed $array_menu
      * @return void
      */
-    public function setArrayMenu($array_menu) {
+    public function setArrayMenu($array_menu)
+    {
         $this->array_menu = $array_menu;
     }
 
@@ -105,7 +111,8 @@ class MenuController {
      * @param string $init
      * @return void
      */
-    public function setInit($init) {
+    public function setInit($init)
+    {
         $this->init = $init;
     }
 
@@ -113,7 +120,8 @@ class MenuController {
      * @param string $item
      * @return void
      */
-    public function setItem($item) {
+    public function setItem($item)
+    {
         $this->item = $item;
     }
 
@@ -121,36 +129,40 @@ class MenuController {
      * @param mixed $output
      * @return void
      */
-    public function setOutput($output) {
+    public function setOutput($output)
+    {
         $this->output .= $output;
     }
 
     /**
      * @return mixed
      */
-    public function getArrayMenu() {
+    public function getArrayMenu()
+    {
         return $this->array_menu;
     }
 
     /**
      * @return string
      */
-    public function getInit() {
+    public function getInit()
+    {
         return $this->init;
     }
 
     /**
      * @return string
      */
-    public function getItem() {
+    public function getItem()
+    {
         return $this->item;
     }
 
     /**
      * @return mixed
      */
-    public function getOutput() {
+    public function getOutput()
+    {
         return $this->output;
     }
-
 }

@@ -6,8 +6,8 @@
  * @copyright (c) 2014, David Unay Santisteban
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class Permission {
-
+class Permission
+{
     private $_tree = array();
     private $_state = array();
     private $_path;
@@ -15,7 +15,8 @@ class Permission {
      * Contrsuctor del objeto.
      * @param string $path
      */
-    public function __construct($path) {
+    public function __construct($path)
+    {
         if(substr($path,-1) != "/"){
            $this->_path = $path."/";
         } else {
@@ -28,7 +29,8 @@ class Permission {
      * @param string $file ruta del archivo.
      * @return boolean
      */
-    public function setPerms($perms,$file){
+    public function setPerms($perms,$file)
+    {
         return chmod($file,$perms);
     }
     /**
@@ -39,7 +41,8 @@ class Permission {
      * @param string $path ruta del directorio.
      * @return boolean
      */
-    public function setAllPerms($perms, $recursive = FALSE, $affected = 'ALL' ,$path = null){
+    public function setAllPerms($perms, $recursive = FALSE, $affected = 'ALL' ,$path = null)
+    {
         if(!$path){
             $path = $this->_path;
         }
@@ -74,7 +77,8 @@ class Permission {
      * @param string $file
      * @return array
      */
-    public function getPerms($file){
+    public function getPerms($file)
+    {
         $permisos = fileperms($file);
 
         if (($permisos & 0xC000) == 0xC000) {
@@ -135,7 +139,8 @@ class Permission {
      * @param string $path
      * @return array
      */
-    public function getAllPerms($recursive = FALSE, $path = null){
+    public function getAllPerms($recursive = FALSE, $path = null)
+    {
         if(!$path){
             $path = $this->_path;
         }

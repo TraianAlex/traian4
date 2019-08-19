@@ -1,7 +1,7 @@
 <?php
 
-class Thumbnail {
-
+class Thumbnail
+{
     protected $_original;
     protected $_originalwidth;
     protected $_originalheight;
@@ -15,7 +15,8 @@ class Thumbnail {
     protected $_suffix = '';//'_thb';
     protected $_messages = array();
 
-    public function __construct($image) {
+    public function __construct($image)
+    {
         if (is_file($image) && is_readable($image)) {
             $details = getimagesize($image);
         } else {
@@ -36,12 +37,11 @@ class Thumbnail {
         }
     }
 
-    public function setDestination($destination) {
+    public function setDestination($destination)
+    {
         if (is_dir($destination) && is_writable($destination)) {
-            // get last character
-            $last = substr($destination, -1);
-            // add a trailing slash if missing
-            if ($last == '/' || $last == '\\') {
+            $last = substr($destination, -1);// get last character
+            if ($last == '/' || $last == '\\') {// add a trailing slash if missing
                 $this->_destination = $destination;
             } else {
                 $this->_destination = $destination . DIRECTORY_SEPARATOR;
@@ -52,17 +52,19 @@ class Thumbnail {
         }
     }
 
-    public function setMaxSize($size) {
+    public function setMaxSize($size)
+    {
         if (is_numeric($size) && $size > 0) {
             $this->_maxSize = abs($size);
-        }else {
+        } else {
             //$this->_messages[] = 'The value for setMaxSize() must be a positive number.';
             throw new Exception('The value for setMaxSize() must be a positive number.');
             $this->_canProcess = false;
-}
+        }
     }
 
-    public function setSuffix($suffix) {
+    public function setSuffix($suffix)
+    {
         if (preg_match('/^\w+$/', $suffix)) {
             if (strpos($suffix, '_') !== 0) {
                 $this->_suffix = '_' . $suffix;
@@ -74,7 +76,8 @@ class Thumbnail {
         }
     }
 
-    public function create() {
+    public function create()
+    {
        if ($this->_canProcess && $this->_originalwidth != 0) {
            $this->calculateSize($this->_originalwidth, $this->_originalheight);
            $this->getName();
@@ -85,11 +88,13 @@ class Thumbnail {
        }
     }
 
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->_messages;
     }
 
-    public function test() {
+    public function test()
+    {
         echo 'File: ' . $this->_original . '<br>';
         echo 'Original width: ' . $this->_originalwidth . '<br>';
         echo 'Original height: ' . $this->_originalheight . '<br>';
@@ -105,7 +110,8 @@ class Thumbnail {
         }
     }
 
-    protected function checkType($mime) {
+    protected function checkType($mime)
+    {
         $mimetypes = array('image/jpeg', 'image/png', 'image/gif');
         if (in_array($mime, $mimetypes)) {
             $this->_canProcess = true;
@@ -114,7 +120,8 @@ class Thumbnail {
         }
     }
 
-    protected function calculateSize($width, $height) {
+    protected function calculateSize($width, $height)
+    {
         if ($width <= $this->_maxSize && $height <= $this->_maxSize) {
             $ratio = 1;
         } elseif ($width > $height) {
@@ -126,12 +133,14 @@ class Thumbnail {
         $this->_thumbheight = round($height * $ratio);
     }
 
-    protected function getName() {
+    protected function getName()
+    {
       $extensions = array('/\.jpg$/i', '/\.jpeg$/i', '/\.png$/i', '/\.gif$/i');
       $this->_name = preg_replace($extensions, '', basename($this->_original));
     }
 
-    protected function createImageResource() {
+    protected function createImageResource()
+    {
         if ($this->_imageType == 'jpeg') {
             return imagecreatefromjpeg($this->_original);
         } elseif ($this->_imageType == 'png') {
@@ -141,7 +150,8 @@ class Thumbnail {
         }
     }
 
-    protected function createThumbnail() {
+    protected function createThumbnail()
+    {
         $resource = $this->createImageResource();
         $thumb = imagecreatetruecolor($this->_thumbwidth, $this->_thumbheight);
         imagecopyresampled($thumb, $resource, 0, 0, 0, 0, $this->_thumbwidth,
@@ -169,5 +179,4 @@ class Thumbnail {
         imagedestroy($resource);
         imagedestroy($thumb);
     }
-
 }

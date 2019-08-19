@@ -5,13 +5,20 @@ password = aaaa
 [sec]
 sup = super
 pwd = secret
+
 k = hash1
 k1 = hash2
 ks = hash3
+
+;captcha keys
 pub_key = hash4
 priv_key = hash5
+secret_captcha2 = hash55
+
+;forms
 fv1 = hash6
 fv2 = hash7
+
 ky = %#@?
 kyc = hash8
 type = sha512

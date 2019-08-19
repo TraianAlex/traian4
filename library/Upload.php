@@ -9,8 +9,8 @@
 • getMessages(): Returns an array of messages reporting the status of uploads.
 * default the class not overwrite and rename always if the same file is up..
 */
-class Upload {
-
+class Upload
+{
     protected $_filenames = array();
     protected $_uploaded = array();
     protected $_destination;
@@ -20,7 +20,8 @@ class Upload {
                                  'image/png', 'image/x-png','image/tiff');
     protected $_renamed = false;
 
-    public function __construct($path) {
+    public function __construct($path)
+    {
         if (!is_dir($path) || !is_writable($path)) {
             throw new Exception("$path must be a valid, writable directory.");
         }
@@ -28,7 +29,8 @@ class Upload {
         $this->_uploaded = $_FILES;
     }
 
-    public function move($overwrite = false) {
+    public function move($overwrite = false)
+    {
         $field = current($this->_uploaded);
         if (is_array($field['name'])) {
             foreach ($field['name'] as $number => $filename) {
@@ -44,8 +46,8 @@ class Upload {
         }
     }
 
-    protected function processFile($filename, $error, $size, $type,$tmp_name,
-                                                            $overwrite) {
+    protected function processFile($filename, $error, $size, $type,$tmp_name, $overwrite)
+    {
         $OK = $this->checkError($filename, $error);
         if ($OK) {
             $sizeOK = $this->checkSize($filename, $size);
@@ -70,15 +72,18 @@ class Upload {
         }
     }
 
-    public function getFilenames() {
+    public function getFilenames()
+    {
         return $this->_filenames;
     }
 
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->_messages;
     }
 
-    protected function checkError($filename, $error) {
+    protected function checkError($filename, $error)
+    {
         switch ($error) {
             case 0:
                 return true;
@@ -99,13 +104,13 @@ class Upload {
                 return false;
             default:
                 //$this->_messages[] = "System error uploading $filename. Contact webmaster.";
-                throw new Exception("System error uploading $filename. Contact
-webmaster.");
+                throw new Exception("System error uploading $filename. Contact webmaster.");
                 return false;
         }
     }
 
-    protected function checkSize($filename, $size) {
+    protected function checkSize($filename, $size)
+    {
         if ($size == 0) {
             return false;
         } elseif ($size > $this->_max) {
@@ -119,7 +124,8 @@ webmaster.");
         }
     }
 
-    protected function checkType($filename, $type) {
+    protected function checkType($filename, $type)
+    {
         if (empty($type)) {
             return false;
         } elseif (!in_array($type, $this->_permitted)) {
@@ -131,23 +137,27 @@ webmaster.");
         }
     }
 
-    public function getMaxSize() {
+    public function getMaxSize()
+    {
         return number_format($this->_max / 1024, 1) . 'kB';
     }
 
-    public function addPermittedTypes($types) {
+    public function addPermittedTypes($types)
+    {
         $types = (array) $types;
         $this->isValidMime($types);
         $this->_permitted = array_merge($this->_permitted, $types);
     }
 
-    public function setPermittedTypes($types) {
+    public function setPermittedTypes($types)
+    {
         $types = (array) $types;
         $this->isValidMime($types);
         $this->_permitted = $types;
     }
 
-    protected function isValidMime($types) {
+    protected function isValidMime($types)
+    {
         $alsoValid = array('video/quicktime','application/pdf',
                            'text/csv',      'application/rtf',
                           'text/plain',    'application/zip',
@@ -161,14 +171,16 @@ webmaster.");
         }
     }
 
-    public function setMaxSize($num) {
+    public function setMaxSize($num)
+    {
         if (!is_numeric($num)) {
             throw new Exception("Maximum size must be a number.");
         }
         $this->_max = (int) $num;
     }
 
-    protected function checkName($name, $overwrite) {
+    protected function checkName($name, $overwrite)
+    {
         $nospaces = str_replace(' ', '_', $name);
         if ($nospaces != $name) {
             $this->_renamed = true;

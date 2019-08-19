@@ -1,11 +1,12 @@
 <?php
 
-class ImageHandler {
-
+class ImageHandler
+{
     public $save_dir; // The folder in which to save images
     public $max_dims;
 
-    public function __construct($save_dir, $max_dims = array(350, 240)) {
+    public function __construct($save_dir, $max_dims = array(350, 240))
+    {
         $this->save_dir = $save_dir; //Sets the $save_dir on instantiatio
         $this->max_dims = $max_dims;
     }
@@ -14,27 +15,21 @@ class ImageHandler {
      * @param array $upload the array contained in $_FILES
      * @param bool $rename whether or not the image should be renamed
      * @return string the path to the resized uploaded file */
-
-    public function processUploadedImage($file, $rename = TRUE) {
-        
-        // Separate the uploaded file array
-        list($name, $type, $tmp, $err, $size) = array_values($file);
-        // If an error occurred, throw an exception
-        if ($err != UPLOAD_ERR_OK) {//4 error
+    public function processUploadedImage($file, $rename = TRUE)
+    {
+        list($name, $type, $tmp, $err, $size) = array_values($file);// Separate the uploaded file array
+        if ($err != UPLOAD_ERR_OK) {//4 error // If an error occurred, throw an exception
             throw new Exception('An error occurred with the upload!');
             exit;
         }//we can check after max image size here or not
         $this->doImageResize($tmp); // Generate a resized image
         if ($rename === TRUE) {// Rename the file if the flag is set to TRUE
-            //Retrieve information about the image
-            $img_ext = $this->getImageExtension($type);
+            $img_ext = $this->getImageExtension($type);//Retrieve information about the image
             $name = $this->renameFile($img_ext);
         }
         $this->checkSaveDir(); // Check that the directory exists
-        //Create the full path to the image for saving
-        $filepath = $this->save_dir . $name;
-        // Store the absolute path to move the image
-        $absolute = $_SERVER['DOCUMENT_ROOT'] . $filepath;
+        $filepath = $this->save_dir . $name;//Create the full path to the image for saving
+        $absolute = $_SERVER['DOCUMENT_ROOT'] . $filepath;// Store the absolute path to move the image
         if (!move_uploaded_file($tmp, $absolute)) {// Save the image
             throw new Exception("Couldn't save the uploaded file!");
         }
@@ -45,16 +40,13 @@ class ImageHandler {
      * Checks for the existence of the supplied save directory,
      * and creates the directory if it doesn't exist. Creation is recursive.
      * @param void
-     * @return void */
-
-    private function checkSaveDir() {//return chmod($fullPath, 700)
-    
-        // Determines the path to check
-        $path = $_SERVER['DOCUMENT_ROOT'] . $this->save_dir;
+     * @return void */ //return chmod($fullPath, 700)
+    private function checkSaveDir()
+    {
+        $path = $_SERVER['DOCUMENT_ROOT'] . $this->save_dir;// Determines the path to check
         if (!is_dir($path)) { // Checks if the directory exists
             if (!mkdir($path, 0777, TRUE)) {// Creates the directory
-                // On failure, throws an error
-                throw new Exception("Can't create the directory!");
+                throw new Exception("Can't create the directory!");// On failure, throws an error
             }
         }
     }
@@ -65,8 +57,9 @@ class ImageHandler {
      * This helps prevent a new file upload from overwriting an existing file with the same name.
      * @param string $ext the file extension for the upload
      * @return string the new filename */
-
-    private function renameFile($ext) {/* Returns the current timestamp and a random number to avoid duplicate filenames */
+    /* Returns the current timestamp and a random number to avoid duplicate filenames */
+    private function renameFile($ext)
+    {
         date_default_timezone_set("America/Toronto");
         return time() . '_' . mt_rand(1000, 9999) . $ext;
     }
@@ -74,9 +67,8 @@ class ImageHandler {
     /* Determines the filetype and extension of an image
      * @param string $type the MIME type of the image
      * @return string the extension to be used with the file */
-
-    private function getImageExtension($type) {
-        
+    private function getImageExtension($type)
+    {
         switch ($type) {
             case 'image/gif': return '.gif';
             case 'image/jpeg':
@@ -87,12 +79,11 @@ class ImageHandler {
         }
     }
 
-    /*     * Determines new dimensions for an image
+    /* Determines new dimensions for an image
       @param string $img the path to the upload
-     * @return array the new and original image dimensions */
-
-    private function getNewDims($img) {// Get new image dimensions
-        
+     * @return array the new and original image dimensions */// Get new image dimensions
+    private function getNewDims($img)
+    {
         list($src_w, $src_h) = getimagesize($img); // Assemble the necessary variables for processing
         list($max_w, $max_h) = $this->max_dims;
         if ($src_w > $max_w || $src_h > $max_h) {// Check that the image is bigger than the maximum dimensions
@@ -112,9 +103,8 @@ class ImageHandler {
      * imagecreatefromstring().
      * @param string $img the path to the upload
      * @return array the image type-specific functions */
-
-    private function getImageFunctions($img) {
-        
+    private function getImageFunctions($img)
+    {
         $info = getimagesize($img);
         switch ($info['mime']) {
             case 'image/jpeg':
@@ -133,19 +123,16 @@ class ImageHandler {
         }
     }
 
-    /*     * Generates a resampled and resized image
+    /* Generates a resampled and resized image
      * Creates and saves a new image based on the new dimensions and image type-specific functions determined by other
      * class methods.
      * @param array $img the path to the upload
      * @return void */
-
-    private function doImageResize($img) {//private
-        
+    private function doImageResize($img)
+    {
         $d = $this->getNewDims($img); // Determine the new dimensions
-// Determine what functions to use
-        $funcs = $this->getImageFunctions($img);
-// Create the image resources for resampling
-        $src_img = $funcs[0]($img);
+        $funcs = $this->getImageFunctions($img);// Determine what functions to use
+        $src_img = $funcs[0]($img);// Create the image resources for resampling
         $new_img = imagecreatetruecolor($d[0], $d[1]);
         if (imagecopyresampled($new_img, $src_img, 0, 0, 0, 0, $d[0], $d[1], $d[2], $d[3])) {
             imagedestroy($src_img);
@@ -159,8 +146,8 @@ class ImageHandler {
         }
     }
 
-    public function processUploadedImage2() {
-
+    public function processUploadedImage2()
+    {
         $php_errors = array(1 => 'Maximum file size in php.ini exceeded',
             2 => 'Maximum file size in HTML form exceeded',
             3 => 'Only part of the file was uploaded',
@@ -181,16 +168,17 @@ class ImageHandler {
             $now++;
         }
         $this->checkSaveDir(); // Check that the directory exists
-//Create the full path to the img for saving
-        $img_path = $this->save_dir . $name;
+        $img_path = $this->save_dir . $name;//Create the full path to the img for saving
         $absolute = $_SERVER['DOCUMENT_ROOT'] . $img_path;
         @move_uploaded_file($_FILES['image']['tmp_name'], $absolute) or
                 handle_error2("we had a problem saving your image to its permanent location.",
-                        "permissions or related error moving file to {$upload_filename}");
+                        "permissions or related error moving file to {$name}");
         return $img_path;
     }
 
-    public function processUploadedImage3($file) {//profiles pic
+    //profiles pic
+    public function processUploadedImage3($file)
+    {
         //$this->doImageResize($_FILES['user_pic']['tmp_name']);
         $this->checkSaveDir();
         $img_path = $this->save_dir . $_SESSION['user'] . ".jpg";
@@ -235,8 +223,7 @@ class ImageHandler {
             }
             $tmp = imagecreatetruecolor($tw, $th);
             imagecopyresampled($tmp, $src, 0, 0, 0, 0, $tw, $th, $w, $h);
-            imageconvolution($tmp, array(array(-1, -1, -1),
-                array(-1, 16, -1), array(-1, -1, -1)), 8, 0);
+            imageconvolution($tmp, [[-1, -1, -1], [-1, 16, -1], [-1, -1, -1]], 8, 0);
             imagejpeg($tmp, $saveto);
             imagedestroy($tmp);
             imagedestroy($src);
@@ -244,35 +231,29 @@ class ImageHandler {
         return $img_path;
     }
 
-    public function processUploadedImage4() {
-
-        // Check for an uploaded file: name='upload'
-        if (isset($_FILES['upload'])) {
-            // Validate the type. Should be JPEG or PNG.
-            $allowed = array('image/pjpeg', 'image/jpeg', 'image/JPG', 'image/jpg',
-                'image/X-PNG', 'image/PNG', 'image/png', 'image/x-png');
+    public function processUploadedImage4()
+    {
+        if (isset($_FILES['upload'])) {// Check for an uploaded file: name='upload'
+            $allowed = [
+                'image/pjpeg', 'image/jpeg', 'image/JPG', 'image/jpg', 'image/X-PNG', 'image/PNG', 'image/png', 'image/x-png'
+            ];
             if (in_array($_FILES['upload']['type'], $allowed)) {
-                // Move the file over.
-                $saveto = $_SERVER['DOCUMENT_ROOT'] . SITE_ROOT . "/images/" .
-                        $_FILES['upload']['name'];
-                if (move_uploaded_file($_FILES['upload']['tmp_name'], $saveto)) {
+                $saveto = $_SERVER['DOCUMENT_ROOT'] . SITE_ROOT . "/images/" . $_FILES['upload']['name'];
+                if (move_uploaded_file($_FILES['upload']['tmp_name'], $saveto)) {// Move the file over.
                     echo '<p><em>The file has been uploaded!</em></p>';
-                } // End of move... IF.
-            } else { // Invalid type.
+                }
+            } else {
                 echo '<p class="error">Please upload a JPEG or PNG image.</p>';
             }
-        } // End of isset($_FILES['upload']) IF.
-// Check for an error:
+        }
+
         if ($_FILES['upload']['error'] > 0) {
-            echo '<p class="error">The file could not be uploaded '
-            . 'because: <strong>';
-// Print a message based upon the error.
+            echo '<p class="error">The file could not be uploaded because: <strong>';
+
             switch ($_FILES['upload']['error']) {
-                case 1: print 'The file exceeds the upload_max_filesize '
-                            . 'setting in php.';
+                case 1: print 'The file exceeds the upload_max_filesize setting in php.';
                     break;
-                case 2: print 'The file exceeds the MAX_FILE_SIZE '
-                            . 'setting in the form.';
+                case 2: print 'The file exceeds the MAX_FILE_SIZE setting in the form.';
                     break;
                 case 3: print 'The file was only partially uploaded.';
                     break;
@@ -286,14 +267,12 @@ class ImageHandler {
                     break;
                 default: print 'A system error occurred.';
                     break;
-            } // End of switch.
+            }
             print '</strong></p>';
-        } // End of error IF.
+        }
         // Delete the file if it still exists:
-        if (file_exists($_FILES['upload']['tmp_name']) &&
-                is_file($_FILES['upload']['tmp_name'])) {
+        if (file_exists($_FILES['upload']['tmp_name']) && is_file($_FILES['upload']['tmp_name'])) {
             unlink($_FILES['upload']['tmp_name']);
         }
     }
-
 }

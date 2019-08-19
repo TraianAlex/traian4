@@ -55,9 +55,12 @@ class Controller
     {    
         $class = Registry::setClass();
         $controller = is_subclass_of($class, __CLASS__) && is_a($class, __CLASS__) ?
-            Registry::get(): new Users_C();
+            Registry::get() :
+            new Users_C();
         $params = $this->route ? array_values($this->route) : [];
-        method_exists($controller, $this->page) ? call_user_func_array([$controller, $this->page], $params) : $controller->index();
+        method_exists($controller, $this->page) ?
+            call_user_func_array([$controller, $this->page], $params) :
+            $controller->index();
         //method_exists($controller, $this->page) ? $controller->$this->page() : $controller->index();
     }
     

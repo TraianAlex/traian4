@@ -45,13 +45,14 @@
 /**
  * footer
  */
-    function setDate(){
+    function setDate()
+    {
         date_default_timezone_set("America/Toronto");
         return 2013 == date('y') ? 2013 : "2013 &#8211; ".date('y');
     }
 
-    function count_page1(){
-
+    function count_page1()
+    {
         $cfile = "inc/lctr-test.php.dat";
         $fh = @fopen($cfile, "r+") or die("<BR>Failed to open file <I>$cfile</I>.");
         @flock($fh, LOCK_EX) or die("<BR>Could not lock file <I>$cfile</I>.");
@@ -68,8 +69,8 @@
         echo "</b> times.<br>";//brought from index
     }
 
-    function count_page2(){
-
+    function count_page2()
+    {
         $counterFile = "inc/count.dat";
         if (!file_exists( $counterFile )) {
             if (!( $handle = fopen( $counterFile, "w" ))) {
@@ -91,8 +92,8 @@
         fclose( $handle );
     }
     
-    function setVerb($view) {
-
+    function setVerb($view)
+    {
         if ($view == $_SESSION['user']){
             $name1 = $name2 = "Your";
             $name3 =         "You are";
@@ -104,8 +105,8 @@
         return [$name1, $name2, $name3];
     }
     
-    function ProtectEmail($email){
-
+    function ProtectEmail($email)
+    {
         $t1 = strpos($email, '@');
         $t2 = strpos($email, '.', $t1);
         if (!$t1 || !$t2) return FALSE;
@@ -121,8 +122,8 @@
 /*
  * delete the menu if I need to change it, made with class menu and item
  */    
-     function delete_menu(){
-
+     function delete_menu()
+     {
         $items = new DirectoryIterator($_SERVER['DOCUMENT_ROOT'] . SITE_ROOT . "/tmp/");
         $files = new RegexIterator($items, '/\.(?:cache|info|tmp)$/i'); 
 
@@ -136,11 +137,13 @@
  * @param type $message
  * @return string
  */
-    function encrypt_data($message){//fix
+    function encrypt_data($message)
+    {//fix
        return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, KY, $message,MCRYPT_MODE_ECB,IV);
     }
     
-    function decrypt_data($enc){
+    function decrypt_data($enc)
+    {
        return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, KY, $enc, MCRYPT_MODE_ECB, IV);
     }
 /**
@@ -150,8 +153,8 @@
  * @param type $func
  * @return string
  */
-    function hashfinal($key1, $key2=0, $func='sha512') {
-        
+    function hashfinal($key1, $key2=0, $func='sha512')
+    {
         $ctz = null;
         $ctz = hash_init($func);
         hash_update($ctz, $key1);
@@ -163,15 +166,18 @@
  * @param type $pass
  * @return string
  */
-    function hash_pass($pass){
+    function hash_pass($pass)
+    {
         return bin2hex(mhash(MHASH_GOST, $pass));
     }
 
-    function hash_pass2($pass){
+    function hash_pass2($pass)
+    {
         return bin2hex(mhash(MHASH_TIGER, $pass));
     }
 
-    function hash_pass3($pass){
+    function hash_pass3($pass)
+    {
         return bin2hex(mhash(MHASH_RIPEMD160, $pass));
     }
 //hash("sha256", 4444);
@@ -182,8 +188,8 @@
 //param 1 by mail, 3 write in the error log
 //error_log("Houston, we've had a problem.", 1, "victor_traian@yahoo.com", "Cc: victor_traian@hotmail.com" );
     
-    function getCurlData($url){
-        
+    function getCurlData($url)
+    {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -194,7 +200,8 @@
         return $curlData;
     }
     
-    function EmbedYouTubeVideo($id, $width, $height, $hq, $full, $auto){
+    function EmbedYouTubeVideo($id, $width, $height, $hq, $full, $auto)
+    {
    // This plug-in accepts the absolute URL of a web page
    // and a link featured within that page. The link is then
    // turned into an absolute URL which can be independently

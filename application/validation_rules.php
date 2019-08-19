@@ -6,8 +6,9 @@
 /*
  *  check is a control defined in array is empty - required
  */
-       $config['emptyKey'] = ['user', 'pwd', 'repwd', 'newuser', 'email', 's_q', 'f_email', 'p_email',
-                              'text', 'code'];
+       $config['emptyKey'] = [
+           'user', 'pwd', 'repwd', 'newuser', 'email', 's_q', 'f_email', 'p_email', 'text', 'code'
+       ];
 /*
  * check is an email is valid (only online)
  */
@@ -129,6 +130,7 @@ default:
  * 'select', 'insert', 'delete', 'update','drop table', 'union', 'null','order by','order+by',
  * 'from','version','database','tables','query', '<','>','<script','/>'
 */       
-       $config['injection'] = ['user', 'pwd', 'repwd', 'newuser', 'newadmin',
-                                'email', 's_q', 'f_email', 'p_email', 'text', 'code',
-                                'email_adm', 'destination'];
+       $config['injection'] = [
+           'user', 'pwd', 'repwd', 'newuser', 'newadmin', 'email', 's_q', 'f_email', 'p_email', 'text', 'code',
+           'email_adm', 'destination'
+       ];

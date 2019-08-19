@@ -3,8 +3,9 @@
 class CleverString
 {
     private $_theString = "";
-    private static $_allowedFunctions = array("strlen", "strtoupper", "strpos",
-        "htmlentities", "strip_tags", "htmlspecialchars", "stripslashes");
+    private static $_allowedFunctions = [
+        "strlen", "strtoupper", "strpos", "htmlentities", "strip_tags", "htmlspecialchars", "stripslashes"
+    ];
 
     public function setString($stringVal)
     {

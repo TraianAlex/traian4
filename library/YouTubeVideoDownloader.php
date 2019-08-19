@@ -9,8 +9,8 @@
  * @license GPL v3
  */
 
-class YouTubeVideoDownloader {
-	
+class YouTubeVideoDownloader
+{
 	private $videoID;
 	
 	private $supportedVideoFormat = array("5", "18", "34");
@@ -23,7 +23,8 @@ class YouTubeVideoDownloader {
 	
 	private $title;
 	
-	public function __construct($videoID, $videoFormat) {
+	public function __construct($videoID, $videoFormat)
+    {
 		$this->videoID = $videoID;
 		if(!in_array($videoFormat, $this->supportedVideoFormat)) {
 			$videoFormat = "5";
@@ -32,30 +33,33 @@ class YouTubeVideoDownloader {
 		$this->createDownloadLink();
 	}
 	
-	public function createDownloadLink() {
-            $infoPage = file_get_contents("http://youtube.com/get_video_info?video_id=".$this->videoID);
-            parse_str($infoPage, $arr);
-            if(!isset($arr['url_encoded_fmt_stream_map'])){//resolved an error if is a bad code
-                throw new Exception('Invalid code');
-            }
-            $this->title = $arr['title'];
-            $urlData = $arr['url_encoded_fmt_stream_map'];
-            $dataSet = explode(',', $urlData);
-            parse_str(urldecode($dataSet[0]), $data);
-            $url = $data['url'];
-            $sig = $data['signature'];
-            unset($data['type']);
-            unset($data['url']);
-            unset($data['sig']);
-            $this->downloadUrl = str_replace('%2C', ',' ,$url.'&'.http_build_query($data).'&signature='.$sig.'&fmt='.$this->videoFormat);
+	public function createDownloadLink()
+    {
+        $infoPage = file_get_contents("http://youtube.com/get_video_info?video_id=".$this->videoID);
+        parse_str($infoPage, $arr);
+        if(!isset($arr['url_encoded_fmt_stream_map'])){//resolved an error if is a bad code
+            throw new Exception('Invalid code');
         }
+        $this->title = $arr['title'];
+        $urlData = $arr['url_encoded_fmt_stream_map'];
+        $dataSet = explode(',', $urlData);
+        parse_str(urldecode($dataSet[0]), $data);
+        $url = $data['url'];
+        $sig = $data['signature'];
+        unset($data['type']);
+        unset($data['url']);
+        unset($data['sig']);
+        $this->downloadUrl = str_replace('%2C', ',' ,$url.'&'.http_build_query($data).'&signature='.$sig.'&fmt='.$this->videoFormat);
+    }
 	
-	public function wgetDownload() {
-            $code = 'wget --output-document='.PATH_FILE.$this->DESTINATION.str_replace(" ", "-", $this->title).'.mp4 '."'$this->downloadUrl'";
-            shell_exec($code);
+	public function wgetDownload()
+    {
+        $code = 'wget --output-document='.PATH_FILE.$this->DESTINATION.str_replace(" ", "-", $this->title).'.mp4 '."'$this->downloadUrl'";
+        shell_exec($code);
 	}
 	
-	public function curlDownload() {
+	public function curlDownload()
+    {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->downloadUrl);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -70,11 +74,12 @@ class YouTubeVideoDownloader {
 		fclose($file);
 	}
         
-        public function setDestination($destination) {
-            $path = PATH_FILE.$destination;
-            if(is_dir($path) === false){
-                    mkdir($path, 0777);
-            }
-            return $this->DESTINATION = $destination;
+    public function setDestination($destination)
+    {
+        $path = PATH_FILE.$destination;
+        if(is_dir($path) === false){
+                mkdir($path, 0777);
         }
+        return $this->DESTINATION = $destination;
+    }
 }

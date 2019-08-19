@@ -1,0 +1,6 @@
+<?php
+class menuTmp{
+public static function getvalue(){
+return @unserialize(base64_decode('Tzo0OiJtZW51IjozOntzOjg6Im1haW5NZW51IjtPOjQ6Iml0ZW0iOjg6e3M6NToidGl0bGUiO047czo0OiJocmVmIjtzOjA6IiI7czo1OiJkZXB0aCI7aTowO3M6NjoidGFyZ2V0IjtzOjA6IiI7czo2OiJwYXJlbnQiO047czoyOiJJRCI7TjtzOjg6ImNzc0NsYXNzIjtOO3M6ODoiY2hpbGRyZW4iO2E6MDp7fX1zOjEwOiIAbWVudQBsYW5nIjtzOjA6IiI7czo4OiJjc3NDbGFzcyI7Tjt9'));
+}
+}

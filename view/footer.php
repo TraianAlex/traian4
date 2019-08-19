@@ -23,6 +23,8 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X','auto');ga('send','pageview');
         </script>
-
+        <script>
+            const BASE = '<?=BASE?>';
+        </script>
 </body>
 </html>

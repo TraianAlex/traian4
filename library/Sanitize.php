@@ -10,15 +10,15 @@
 * @since Since Release 1.0
 */
 
-class Sanitize{
-
- /* similar as filter_input_array or filter_var_array but
- * added the type, required and function
- * redirect if no name exist
- * sanitize where need a customatization in sanitizing input
- */
-    static function sanitize_vars(&$vars, $sigs, $redir_url = true) {
-
+class Sanitize
+{
+     /* similar as filter_input_array or filter_var_array but
+     * added the type, required and function
+     * redirect if no name exist
+     * sanitize where need a customatization in sanitizing input
+     */
+    static function sanitize_vars(&$vars, $sigs, $redir_url = true)
+    {
         $tmp = array();
         foreach ($sigs as $name => $sig) {/*Walk through the signatures and add them to the temporary array $tmp */
          if (!isset($vars[$name]) && isset($sig['required']) && $sig['required']) {
@@ -35,38 +35,38 @@ class Sanitize{
             if (isset($sig['type'])) {
                 settype($tmp[$name], $sig['type']);
             }
-    /* apply functions to the variables, you can use the standard PHP functions,or your own for added flexibility. */
+            /* apply functions to the variables, you can use the standard PHP functions,or your own for added flexibility. */
             if (isset($sig['function'])) {
                 $tmp[$name] = $sig['function']($tmp[$name]);
             }
         }
         $vars = $tmp;
     }
-/**
- * sanitize input val
- * @param type $data
- * @return string or array
- */
-    static function sanitizeData($data) {//array and string
-        
+    /**
+     * sanitize input val
+     * @param type $data
+     * @return string or array
+     */
+    static function sanitizeData($data)
+    {
         $data = !is_array($data) ? htmlentities($data) : array_map('sanitizeData', $data);
         return $data;
     }
-/*
- * it's working for val
- */
-    static function stripslashes_deep($value){
-        
+    /*
+     * it's working for val
+     */
+    static function stripslashes_deep($value)
+    {
         $value = is_array($value) ?
                     array_map('stripslashes_deep', $value) :
                     htmlspecialchars(stripslashes($value));
         return $value;
     }
-/*
- * it's working for val
- */
-    static function striptags($value){
-
+    /*
+     * it's working for val
+     */
+    static function striptags($value)
+    {
         if(isset($value) && !empty($value)){
             $value = is_array($value) ?
                     array_map('striptags', $value) :
@@ -74,13 +74,13 @@ class Sanitize{
             return $value;
         }
     }
-/**
- * only arrays $_POST,$_GET,$_REQUEST,$_COOKIE and others inputs
- * result only val. after that it can't use the key (invalid arg for foreach)
- * @param array $arr
- */
-    static function stripslashes_array(&$arr) {
-
+    /**
+     * only arrays $_POST,$_GET,$_REQUEST,$_COOKIE and others inputs
+     * result only val. after that it can't use the key (invalid arg for foreach)
+     * @param array $arr
+     */
+    static function stripslashes_array(&$arr)
+    {
         foreach ($arr as $k => &$v) {
             $nk = stripslashes($k);
             if ($nk != $k) {
@@ -94,14 +94,14 @@ class Sanitize{
             }
         }
     }
-/**
- * apply function allowed for string (wrapp a string)
- * @param array $input
- * @param string $func
- * @return string
- */
-    static function sanit($input, $func){
-
+    /**
+     * apply function allowed for string (wrapp a string)
+     * @param array $input
+     * @param string $func
+     * @return string
+     */
+    static function sanit($input, $func)
+    {
         $str = new CleverString();
         if(is_array($input)){
             foreach ($input as $v) {
@@ -113,20 +113,21 @@ class Sanitize{
             echo $str->$func();
         }
     }
-/**
- * sanitize the ouput
- * @param string $text
- */
-    static function htmlout($text) {
+    /**
+     * sanitize the ouput
+     * @param string $text
+     */
+    static function htmlout($text)
+    {
         return htmlentities($text, ENT_QUOTES, 'UTF-8');//htmlspecialchars
     }
-/**
- * replace all bad word and put the smiles emoticons
- * @param string $txt
- * @return string
- */
-    static function format($txt) {
-        
+    /**
+     * replace all bad word and put the smiles emoticons
+     * @param string $txt
+     * @return string
+     */
+    static function format($txt)
+    {
         $de_inloc = $cu_inloc = [];
         $de_inloc[] = ["prost", "cacat", "pisat", "pula", "sula", "pizda", "muie", "sugi", "coi", "coios", "taran", "curva", "jepat", "fuck", "futut", "fut", "fute", "muist", "bulesc", "babardesc", "homo", "homosexual", "bulit", "futi", "floci", "bagami-as", "bagamias", "mata", "tact-o", 'bitch', "bitchass", "blowjob", "blow job", "shit"];
         $cu_inloc[] = "<span style=\"color:red; font-style: italic;\">×××</span>";
@@ -183,11 +184,11 @@ class Sanitize{
     {
         $pattern[] = "/prost|cacat|pisat|pula|sula|pizda|muie|sugi|coi|coios|taran|curva|jepat|fuck|futut|fut|fute|muist|bulesc|babardesc|homo|homosexual|bulit|futi|floci|bagami-as|bagamias|mata|tact-o|bitch|bitchass|blowjob|blow job|shit/";
         $replace[] = "<span style=\"color:red; font-style: italic;\">×××</span>";
-        if(is_array($txt) && count($txt) > 0){
+        if (is_array($txt) && count($txt) > 0) {
             foreach ($txt as $value) {
                 return preg_replace($pattern, $replace, $value);
             }
-        }else{
+        } else {
             return preg_replace($pattern, $replace, $txt);
         }
     }

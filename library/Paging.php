@@ -11,8 +11,8 @@
 * Description: paginate mysql data with number page on the top, previous,
 * current and Next on the bottom
 **/
-class Paging extends Base{
-
+class Paging //extends Base
+{
       private $per_page;
       private $page;//url
       public  $total_pages;

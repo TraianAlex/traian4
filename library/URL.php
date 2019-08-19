@@ -1,7 +1,7 @@
 <?php
 
-class URL{
-
+class URL
+{
     private $base_url;
     private $parameters;
     private $text;
@@ -42,16 +42,16 @@ class URL{
     public function render()
     {
         $r = '';
-        if($this->parameters)
+        if ($this->parameters)
             $r .= $this->base_url .'/'. $this->parameters;
-        if(trim($this->file) != '')
+        if (trim($this->file) != '')
             $r .= '/'. $this->file;
         return $r;
     }
 
     public function r_link()
     {
-        if(trim($this->text) == '')
+        if (trim($this->text) == '')
             $text = $this->render();
         else
             $text = $this->text;
@@ -65,18 +65,18 @@ class URL{
         $url->set_text($text);
         $url->set_js($js);
         $url->set_style($style);
-        if(strlen($param) > 0){
+        if (strlen($param) > 0) {
             $url->add_param($param);
         }
         return $url->r_link();
     }
-/*
-* redirect url
-*/
+    /*
+    * redirect url
+    */
     public static function to($url=null)
     {
-        if($url){
-            if(is_numeric($url)){
+        if ($url) {
+            if (is_numeric($url)) {
                 switch ($url) {
                     case 404:
                         header('HTTP1/0 404 Not Found') ;
@@ -90,27 +90,27 @@ class URL{
             }
             header('Location: ' . SITE_ROOT .'/'. $url ) ;
             exit;
-        }else{
+        } else {
             header('Location: ' . SITE_ROOT .'/' ) ;
             exit;
         }
     }
-//link <li>
+    //link <li>
     public static function link_l($url, $label, $target=null)
     {
         return '<li><a href="'.$url.'" target='.$target.'>'. $label .'</a></li>';
     }
-//simple link    
+    //simple link
     public static function link_s($url, $label, $target=null)
     {
         return "<a href=".$url." target=".$target.">$label</a>";
     }
-/**
- * create a horizontal menu
- * @param string $siteURL
- * @param string $section
- * @param string $title
- */
+    /**
+     * create a horizontal menu
+     * @param string $siteURL
+     * @param string $section
+     * @param string $title
+     */
      public static function create_crumbs()
      {
         $class = isset(get_url()[0]) ? get_url()[0] : 'users';
@@ -122,13 +122,13 @@ class URL{
                 . "<li><a href ='".SITE_ROOT."/$class/$page'>$page</a> $id</li>"
              . "<ol>";
      }
-/**
- * back link
- * 1 check that browser supports $_SERVER variables
- * 3 find if visitor was referred from a different domain
- * 4 if same domain, use referring URL
- * 7 otherwise, send to main page
- */
+    /**
+     * back link
+     * 1 check that browser supports $_SERVER variables
+     * 3 find if visitor was referred from a different domain
+     * 4 if same domain, use referring URL
+     * 7 otherwise, send to main page
+     */
     private static function back()
     {
         if (isset($_SERVER['HTTP_REFERER']) && isset($_SERVER['HTTP_HOST'])):
@@ -141,20 +141,20 @@ class URL{
         endif;
         return "< <a href='$back'>Back</a> ";
     }
-/**
- * admin
- * @param Crypt_HMAC $h
- * @param type $path
- * @param type $page
- * @param type $url
- * @param type $string
- */
+    /**
+     * admin
+     * @param Crypt_HMAC $h
+     * @param type $path
+     * @param type $page
+     * @param type $url
+     * @param type $string
+     */
     public static function xlink($class, $page, $id, $string)
     {
         $h = new Crypt_HMAC(KEY);
         return "<a href='".SITE_ROOT."/".$h->create_parameters(array('class' => $class, 'page'=>$page,'id'=>$id))."'>$string</a>";
     }
-//for sidebar
+    //for sidebar
     public static function xlink2($style, $class, $page, $id, $string)
     {
         $h = new Crypt_HMAC(KEY);
@@ -166,12 +166,12 @@ class URL{
         $h = new Crypt_HMAC(KEY);
         return $h->create_parameters(array('class' => $class, 'page' => $page, 'id' => $id));
     }
-/**
- * admin
- * @param Crypt_HMAC $h
- * @param type $page
- * @param type $url
- */
+    /**
+     * admin
+     * @param Crypt_HMAC $h
+     * @param type $page
+     * @param type $url
+     */
     public static function xdelete($class, $page, $id)
     {
         $h = new Crypt_HMAC(KEY);

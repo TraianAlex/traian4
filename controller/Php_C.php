@@ -20,8 +20,8 @@ class Php_C extends Controller
 //exec    
     public function exec_down()
     {
-        try{
-            if(isset($_POST['submit']) && $_POST['submit'] == 'Download'){
+        try {
+            if (isset($_POST['submit']) && $_POST['submit'] == 'Download') {
                 $this->valid->validation($_POST);
                 $obj = new YouTubeVideoDownloader($_POST['code'], "34");
                 //$obj->wgetDownload();
@@ -29,7 +29,7 @@ class Php_C extends Controller
                 $obj->curlDownload();
                 throw new Exception('Successfully downloaded');
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             Errors::handle_error2($e->getMessage(), null);
             exit;
         }
@@ -37,14 +37,14 @@ class Php_C extends Controller
     
     public function spellcheck()
     {    
-        if(isset($_POST['submit']) && $_POST['submit'] == 'Check'){
+        if (isset($_POST['submit']) && $_POST['submit'] == 'Check') {
             $word = filter_input(INPUT_POST, 'word', FILTER_SANITIZE_STRING);
             $arrData['exist'] = $this->PHP->word_exist($word);
             $arrData['words'] = $this->PHP->extract_dic($word);
             
             $this->view('header');
             $this->view('php/spellchecker', $arrData);
-        }else{
+        } else {
             $this->view('header');
             $this->view('php/spellchecker');
         }
@@ -56,21 +56,22 @@ class Php_C extends Controller
         $this->view('header');
         $this->view('php/index', $source);
     }
-//exec
+    //exec
     public function watermark()
     {
         $this->view('header');
         $this->view('php/watermark');
     }
-    
+
+    //shorten_text function
     public function shorten_text()
-    {//shorten_text function
+    {
         $this->view('header');
         $this->view('php/shorten_text');
     }
-/*
- * func CheckLinks, GetLinksFromURL, RelToAbsURL @FIXME
- */
+    /*
+     * func CheckLinks, GetLinksFromURL, RelToAbsURL @FIXME
+     */
     public function check_site()
     {
         $this->view('header');
@@ -100,7 +101,7 @@ class Php_C extends Controller
         $this->view('header');
         $this->view('php/menu');
     }
-//exec    
+    //exec
     public function delete_menu()
     {
         if($this->page == 'delete_menu')

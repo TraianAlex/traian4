@@ -1,21 +1,21 @@
 <?php
 
-class Errors{
-
+class Errors
+{
     public static function flash($name, $message='')
     {
-        if(Sessions::exist($name)){
+        if (Sessions::exist($name)) {
             $session = Sessions::get($name);
             Sessions::delete($name);
             return $session;
-        }else{
+        } else {
             Sessions::set_session($name, $message);
         }
     }
 
     public static function show_errors($success_msg=null, $error_msg=null)
     {
-        if(Sessions::exist('success_msg') || Sessions::exist('error_msg'))
+        if (Sessions::exist('success_msg') || Sessions::exist('error_msg'))
             return self::display_messages(Sessions::get('success_msg'), Sessions::get('error_msg'));
     }
 
@@ -93,17 +93,15 @@ class Errors{
         $message .= "Variables:\n";
         $message .= print_r( $errcontext, true ) . "\n\n";
         error_log( $message, 3, "C:\\xampp\htdocs\php-pdo\admin\\error.log" );
-        die( "There was a problem, so I’ve stopped running. Please try again." );
+        die("There was a problem, so I’ve stopped running. Please try again.");
     }
 
     public function handleMissedException($e)
     {
-        echo "Sorry, something is wrong. Please try again, or contact us.
-         if the problem persists";
-        error_log('Unhandled Exception: ' . $e->getMessage()
-        . ' in file ' . $e->getFile() . ' on line ' . $e->getLine());
+        echo "Sorry, something is wrong. Please try again, or contact us. if the problem persists";
+        error_log('Unhandled Exception: '.$e->getMessage().' in file '.$e->getFile().' on line '.$e->getLine());
     }
-//set_exception_handler('handleMissedException');
-//param 1 by mail, 3 write in the error log
-//error_log("Houston, we've had a problem.", 1, "victor_traian@yahoo.com", "Cc: victor_traian@hotmail.com" );
+    //set_exception_handler('handleMissedException');
+    //param 1 by mail, 3 write in the error log
+    //error_log("Houston, we've had a problem.", 1, "victor_traian@yahoo.com", "Cc: victor_traian@hotmail.com" );
 }

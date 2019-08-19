@@ -1,14 +1,15 @@
 <?php
 
-final class Config_ini {
-
+final class Config_ini
+{
     /** @var array config data */
     private static $data = null;
     /**
      * @return array
      * @throws Exception
      */
-    public static function getConfig($section = null) {
+    public static function getConfig($section = null)
+    {
         if ($section === null) {
             return self::getData();
         }
@@ -22,7 +23,8 @@ final class Config_ini {
     /**
      * @return array
      */
-    private static function getData() {
+    private static function getData()
+    {
         if (self::$data !== null) {
             return self::$data;
         }
@@ -32,8 +34,8 @@ final class Config_ini {
         return self::$data;
     }
 
-    public static function get($path = null){
-        
+    public static function get($path = null)
+    {
         if($path){
             $config = $GLOBALS['config'];
             $path = explode('/', $path);

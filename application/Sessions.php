@@ -140,8 +140,10 @@ class Sessions
 
     public function checkUser()
     {
-        if (!self::exist('id') || !self::exist('user') || !self::get('user')
-             || self::get('id') != sha1(K.sha1(session_id().K)) ||
+        if (!self::exist('id') ||
+            !self::exist('user') ||
+            !self::get('user') ||
+            self::get('id') != sha1(K.sha1(session_id().K)) ||
             (self::get('userAgent') != sha1($_SERVER['HTTP_USER_AGENT'])) ||
             (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))) {
             self::delete(array('user_id', 'user'));
@@ -157,10 +159,12 @@ class Sessions
 
     public function checkAdmin()
     {
-        if (!self::exist('id') || !self::exist('user') || !self::get('user') ||
-               self::get('id') != sha1(K1.sha1(session_id().K1)) ||
-               (self::get('userAgent') != sha1($_SERVER['HTTP_USER_AGENT'])) ||
-               (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))) {
+        if (!self::exist('id') ||
+            !self::exist('user') ||
+            !self::get('user') ||
+            self::get('id') != sha1(K1.sha1(session_id().K1)) ||
+            (self::get('userAgent') != sha1($_SERVER['HTTP_USER_AGENT'])) ||
+            (self::get('canary') != sha1($_SERVER['REMOTE_ADDR']))) {
             self::delete(array('id', 'userAgent', 'canary', 'user'));
             return false;
         } elseif (time() > self::get('start') + self::get('timelimit')) {

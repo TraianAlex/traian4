@@ -9,16 +9,16 @@
 * @license GNU General Public License
 * @since Since Release 1.0
 */
-class Crypt_HMAC {
-
+class Crypt_HMAC
+{
     private $_func;
     private $_data = 0;
     private $_ret = [];
 
-//* Pass method as first parameter
-//* @param string method - Hash function used for the calculation @return void @access public*/
-    public function __construct($key, $method = 'sha1'){
-        
+    //* Pass method as first parameter
+    //* @param string method - Hash function used for the calculation @return void @access public*/
+    public function __construct($key, $method = 'sha1')
+    {
         if (!in_array($method, ['md5', 'sha1'])) {
             die("Unsupported hash function '$method'.");
         }
@@ -34,18 +34,19 @@ class Crypt_HMAC {
             $this->_ipad = substr($key, 0, 64) ^ str_repeat(chr(0x36),64);
             $this->_opad = substr($key, 0, 64) ^ str_repeat(chr(0x5C),64);
     }
-/**Hashing function
-* @param string data - string that will hashed (step 4) @return string @access public*/
-    private function hash($data){
-        
+
+    // Hashing function
+    // @param string data - string that will hashed (step 4) @return string @access public
+    private function hash($data)
+    {
         $func = $this->_func;
         $inner = pack('H32', $func($this->_ipad . $data));
         $digest = $func($this->_opad . $inner);
         return $digest;
     }
 
-    public function create_parameters($array) {
-
+    public function create_parameters($array)
+    {
         $this->_data = 0;
         $this->_ret = [];
         /* Construct the string with our key/value pairs */
@@ -57,9 +58,11 @@ class Crypt_HMAC {
         $this->_ret[] = $hash;
         return join('/', $this->_ret);//return join ('&amp;', $ret);
     }
-//To verify the parameters passed to the script, we can use this script:
-    public function verify_parameters($array) {
-/* Store the hash in a separate variable and unset the hash from the array itself (as it was not used in constructing the hash */
+
+    //To verify the parameters passed to the script, we can use this script:
+    public function verify_parameters($array)
+    {
+    /* Store the hash in a separate variable and unset the hash from the array itself (as it was not used in constructing the hash */
         $hash = $array['h'];
         unset($array['h']);
         /* Construct the string with our key/value pairs */

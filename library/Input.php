@@ -1,9 +1,9 @@
 <?php
 
-class Input{
-    
-    public static function exist($name , $type = 'post') {
-        
+class Input
+{
+    public static function exist($name , $type = 'post')
+    {
         switch ($type){
             case 'post':
                 return (isset($_POST[$name]) && !empty($_POST[$name])) ? true : false;
@@ -17,14 +17,8 @@ class Input{
         }
     }
     
-    public static function get($item) {
-        
-//        if(isset($_POST[$item])){
-//            return $_POST[$item];
-//        }else if(isset($_GET[$item])){
-//            return $_GET[$item];
-//        }
-//        return '';
+    public static function get($item)
+    {
         return isset($_POST[$item]) ? $_POST[$item] : (isset($_GET[$item]) ? $_GET[$item] : '');
     }
 
@@ -36,9 +30,15 @@ class Input{
        if ($num_args >= 2) {
            $method = strtoupper(func_get_arg(0));
 
-           if (($method != 'SESSION') && ($method != 'GET') && ($method != 'POST') && ($method != 'SERVER') && ($method != 'COOKIE') && ($method != 'ENV')) {
+           if (($method != 'SESSION') &&
+               ($method != 'GET') &&
+               ($method != 'POST') &&
+               ($method != 'SERVER') &&
+               ($method != 'COOKIE') &&
+               ($method != 'ENV')
+           ) {
                die('The first argument of pt_register must be one of the following: GET, POST, SESSION, SERVER, COOKIE, or ENV');
-         }
+            }
 
            $varname = "HTTP_{$method}_VARS";
            global ${$varname};

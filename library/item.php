@@ -1,7 +1,7 @@
 <?php
 
-class item{
-
+class item
+{
     public $title;
     public $href = "";
     public $depth = 0;
@@ -11,8 +11,8 @@ class item{
     public $cssClass;
     public $children = array();
     
-    public function addChild($title, $href=null, $target=null){
-    
+    public function addChild($title, $href=null, $target=null)
+    {
         $Child = new item;
         $Child->title = $title;
         $Child->href = $href;
@@ -24,19 +24,22 @@ class item{
         return $Child;
     }
     
-    public function remove(){
-        unset(  $this->parent->children[array_search($this, $this->parent->children)]);
+    public function remove()
+    {
+        unset($this->parent->children[array_search($this, $this->parent->children)]);
         $this->parent->children = array_values($this->parent->children);
     }
     
-    public function getIndex(){
-        return array_search($this,$this->parent->children);
+    public function getIndex()
+    {
+        return array_search($this, $this->parent->children);
     }
     
-    public function getPath(){
+    public function getPath()
+    {
         $p = &$this;
         $path = "";
-        while($p->parent != null){
+        while ($p->parent != null) {
             $path = $p->getIndex() . "_" . $path;
             $p = &$p->parent;
         }

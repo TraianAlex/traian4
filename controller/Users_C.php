@@ -38,10 +38,10 @@ final class Users_C extends Controller
         
         if ($this->input->exist('submit') && $this->input->get('submit') == 'Sign In') {
             $this->valid->validation($_POST);
-            if($this->session->attempt() === false)
+            if ($this->session->attempt() === false)
                 URL::to("users/forgot_password");
             $row = call_user_func([new Users($_POST), 'login_user']);
-            if(!$row){
+            if (!$row){
                 $this->session->delete_session();
                 $this->session->set_session('att', $this->session->get('att') + 1);
                 Errors::handle_error2(null,'The username or password does not match!');
@@ -51,9 +51,9 @@ final class Users_C extends Controller
         }
     }
 
-    private function auth_user($row)
+    private function auth_user($rows)
     {
-        foreach($row as $row):
+        foreach($rows as $row):
             $this->session->set_session('user', $row->username);
             $this->session->set_session('user_id', (int)$row->id_user);
             $this->session->set_session('submit', "Welcome");
@@ -78,16 +78,16 @@ final class Users_C extends Controller
     public function send_pass()
     {
         if ($this->input->exist('send_id') && $this->input->get('send_id') == 'Send link') {
-            try{
+            try {
                 $this->valid->validation($_POST);
                 $send = $this->Users->send_email_reset();
                 if($send){
                     $this->session->delete_session();
                     throw new Exception();
-                }else{
+                } else {
                     throw new Exception('&#x2718; Request failed');
                 }
-            }catch(Exception $e){
+            } catch(Exception $e) {
                 Errors::handle_error2($e->getMessage(), null);
             }
         }
@@ -97,19 +97,19 @@ final class Users_C extends Controller
     
     public function register()
     {
-        if ($this->input->exist('add_new_user') && $this->input->get('add_new_user') == 'Register'){
-            try{
+        if ($this->input->exist('add_new_user') && $this->input->get('add_new_user') == 'Register') {
+            try {
                 $this->session->set_session('reg', $_POST);
                 $this->valid->validation($_POST);
                 //Captcha::responseCaptcha2();
                 $reg = $this->Users->register_user();
-                if($reg){
+                if ($reg) {
                     $this->session->delete_session();
                     throw new Exception('&#x2714; Registered!');
-                }else{
+                } else {
                      throw new Exception('&#x2718; Register failed');
                     }
-            }catch(Exception $e){
+            } catch(Exception $e) {
                  Errors::handle_error2($e->getMessage(), null);
                  URL::to("users/login_area");
             }
@@ -127,10 +127,10 @@ final class Users_C extends Controller
         //$arrData = [$this->model('Users', 'get_users', $_SESSION['user'])];
         $arrData = call_user_func([new Users($_POST), 'get_users'], $_SESSION['user']);
         $this->view('header');
-        if($arrData)
+        if ($arrData)
             $this->view('users/links_profile', $arrData);
         $arrData2 = call_user_func([new Users($_POST), 'get_users_oath'], $_SESSION['user_id']);
-        if($arrData2)
+        if ($arrData2)
             $this->view('users/links_profile_oath', $arrData2);
     }
     
@@ -145,17 +145,17 @@ final class Users_C extends Controller
     
     public function update_data()
     {    
-        if ($this->input->exist('change_data') && $this->input->get('change_data') == 'Change data'){
-            try{
+        if ($this->input->exist('change_data') && $this->input->get('change_data') == 'Change data') {
+            try {
                 $this->valid->validation($_POST);
                 $update = $this->Users->update();
-                if($update){
+                if ($update) {
                     $this->session->delete_session();
                     throw new Exception('&#x2714; Your data has been modified.');
-                }else{
+                } else {
                     throw new Exception('&#x2718; You didn\'t change anything or the email already exist');
                 }
-            }catch(Exception $e){
+            } catch(Exception $e) {
                 Errors::handle_error2(null,$e->getMessage());
             }
         }
@@ -163,18 +163,18 @@ final class Users_C extends Controller
     
     public function change_pass()
     {    
-        if ($this->input->exist('password') && $this->input->get('password') == 'Change'){
-            try{
+        if ($this->input->exist('password') && $this->input->get('password') == 'Change') {
+            try {
                 $this->valid->validation($_POST);
                 $this->valid->checkPassword(Sessions::get('user'), $this->input->get('old_pwd'));
                 $change = $this->Users->change_password();
-                if($change){
+                if ($change){
                     $this->session->delete_session();
                     throw new Exception('&#x2714; Password changed.');
-                }else {
+                } else {
                     throw new Exception('&#x2718; No changes made. There is the same password');
                 }
-            }  catch (Exception $e){
+            } catch (Exception $e) {
                 Errors::handle_error2(null, $e->getMessage());
             }
         }
@@ -213,7 +213,7 @@ final class Users_C extends Controller
 
     public function oath_ajax_login()
     {    
-        if ($this->input->exist('B') && !empty($_POST['B']) && !empty($_POST['G'])){
+        if ($this->input->exist('B') && !empty($_POST['B']) && !empty($_POST['G'])) {
             $id = $this->clean_post($this->input->get('B')); //Google ID
             $email = $this->clean_post($this->input->get('G')); // Email ID
             $name = $this->clean_post($this->input->get('ha')); // Name
@@ -265,5 +265,4 @@ final class Users_C extends Controller
         $this->session->set_session('submit', "Welcome");
         $this->session->set_session('id', sha1(K . sha1(session_id(). K)));
     }
-
 }

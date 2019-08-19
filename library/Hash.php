@@ -1,6 +1,7 @@
 <?php
 
-class Hash{
+class Hash
+{
 /*
  * Password Hashing With PBKDF2 (http://crackstation.net/hashing-security.htm).
  * Copyright (c) 2013, Taylor Hornby
@@ -29,7 +30,8 @@ class Hash{
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-    public static function init() {
+    public static function init()
+    {
         // These constants may be changed without breaking existing hashes.
         define("PBKDF2_HASH_ALGORITHM", "sha256");
         define("PBKDF2_ITERATIONS", 1000);
@@ -44,7 +46,8 @@ class Hash{
     }
 
 
-    public static function create_hash($password){
+    public static function create_hash($password)
+    {
         // format: algorithm:iterations:salt:hash
         $salt = base64_encode(mcrypt_create_iv(PBKDF2_SALT_BYTE_SIZE, MCRYPT_DEV_URANDOM));
         return PBKDF2_HASH_ALGORITHM . ":" . PBKDF2_ITERATIONS . ":" .  $salt . ":" .
@@ -58,7 +61,8 @@ class Hash{
             ));
     }
 
-    public static function validate_password($password, $correct_hash){
+    public static function validate_password($password, $correct_hash)
+    {
         $params = explode(":", $correct_hash);
         if(count($params) < HASH_SECTIONS)
            return false;
@@ -77,7 +81,8 @@ class Hash{
     }
 
     // Compares two strings $a and $b in length-constant time.
-    private static function slow_equals($a, $b){
+    private static function slow_equals($a, $b)
+    {
         $diff = strlen($a) ^ strlen($b);
         for($i = 0; $i < strlen($a) && $i < strlen($b); $i++)
         {
@@ -107,7 +112,8 @@ class Hash{
  * This implementation of PBKDF2 was originally created by https://defuse.ca
  * With improvements by http://www.variations-of-shadow.com
  */
-    private static function pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output = false){
+    private static function pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output = false)
+    {
         $algorithm = strtolower($algorithm);
         if(!in_array($algorithm, hash_algos(), true))
             trigger_error('PBKDF2 ERROR: Invalid hash algorithm.', E_USER_ERROR);
@@ -143,5 +149,4 @@ class Hash{
         else
             return bin2hex(substr($output, 0, $key_length));
     }
-
 }
